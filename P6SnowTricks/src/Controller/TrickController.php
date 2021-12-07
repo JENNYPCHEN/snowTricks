@@ -18,7 +18,7 @@ class TrickController extends AbstractController
         ]);
     }
       /**
-     * @Route("/trick/create", name="createTrickPage")
+     * @Route("/createTrick", name="createTrickPage")
      */
     public function createTrickPage(): Response
     {
