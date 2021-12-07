@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tricks{% endblock %}
+
+{% block body %}
+
+   <main class='container' id="trick">
+   <section >
+    <!--main image-->
+    <div class="p-5 mb-5 text-center mainImage " style="background-image: url('{{asset('img/carousel1.jpg')}}');">
+      <h1 class="mt-5 mb-4 titleTrick">Heading</h1>
+    </div>
+    <div class="text-end"> 
+      <a class="mx-1"href="#!" role="button"><i class="fas fa-1x fa-pencil-alt text-right fa-sm"></i></a>
+      <a class="mx-1 " href="#!" role="button"><i class="fas fa-trash-alt fa-sm text-right"></i></a>
+  </div>
+ 
+    </section>
+      
+   
+    <section>
+      <!--test-->
+
+     <!-- Gallery -->
+     <div class="d-flex justify-content-center" >
+     <a id="galleryButton" class="flex col-4 mb-4 btn btn-primary d-xs-block d-sm-block d-md-none d-lg-none d-xl-none " data-bs-toggle="collapse" href="#gallery" role="button" aria-expanded="false" aria-controls="collapseExample">
+      Voir les images </a>
+    </div>
+  <!--class collaspe when small screen-->
+  <div id="gallery" class="row d-flex justify-content-center">
+<div class="col-lg-2 col-sm-3 mb-4 mb-lg-0">
+  <div class="card mb-2">
+    <img class="card-img-top" src="{{asset('img/pexels-kourtney-gundersen-9867383.jpg')}}">
+    <div class="card-text d-flex justify-content-end d-none"> 
+        <a class="mx-1"href="#!" role="button"><i class="fas fa-pencil-alt text-right fa-sm"></i></a>
+        <a class="mx-1 " href="#!" role="button"><i class="fas fa-trash-alt fa-sm text-right"></i></a>
+    </div>
+  </div>
+</div> 
+
+<div class="col-lg-2 col-sm-3 mb-4 mb-lg-0">
+  <div class="card mb-2">
+    <img class="card-img-top" src="{{asset('img/pexels-kourtney-gundersen-9867383.jpg')}}">
+    <div class="card-text d-flex justify-content-end d-none"> 
+        <a class="mx-1"href="#!" role="button"><i class="fas fa-pencil-alt text-right fa-sm"></i></a>
+        <a class="mx-1 " href="#!" role="button"><i class="fas fa-trash-alt fa-sm text-right"></i></a>
+    </div>
+  </div>
+</div> 
+
+<div class="col-lg-2 col-sm-3 mb-4 mb-lg-0">
+  <div class="card mb-2">
+    <img class="card-img-top" src="{{asset('img/pexels-kourtney-gundersen-9867383.jpg')}}">
+    <div class="card-text d-flex justify-content-end d-none"> 
+        <a class="mx-1"href="#!" role="button"><i class="fas fa-pencil-alt text-right fa-sm"></i></a>
+        <a class="mx-1 " href="#!" role="button"><i class="fas fa-trash-alt fa-sm text-right"></i></a>
+    </div>
+  </div>
+</div> 
+
+
+</div>
+</div>
+</section>
+<!--content-->
+<section class="d-flex justify-content-center">
+<p class=" col-10 mb-4">Let’s take a look at how advanced you need to be to start freestyling, what equipment you should invest in, what terrain is best for this style of skiing, and how you can perform some beginner snow ski tricks on the slopes.
+
+  With the right know-how, you’ll be pulling off sick moves in no time.</p>
+</section>
+  <!--badge-->
+  <section class="text-center mb-4">
+<span class="badge bg-secondary">Secondary</span>
+<span class="badge bg-secondary">Secondary</span>
+<span class="badge bg-secondary">Secondary</span>
+<span class="badge bg-secondary">Secondary</span>
+</section>
+
+<!--leave message-->
+
+<form class="row d-flex justify-content-center">
+  <div class="mb-3 col-5 mx-1">
+    <input type="text" class="form-control" id="messageBox" aria-describedby="messageBox" placeholder="Commentaire">  
+  </div>
+  <div class="mb-3 col-1 ">
+  <button type="submit" class="btn btn-outline-primary"><i class="fas fa-paper-plane"></i></button>
+  </div>
+  </form>
+  <hr class="dotted">
+<!--comment-->
+<section> 
+<div class="row d-flex justify-content-center">
+  <div class="col-md-1 col-2"><img src="{{asset('img/image_profiles/avatar2.png')}}" class="avatar text-right"></div>
+  <div class="col-md-5 col-8">
+  <div class=" bg-light px-2 p-1" style="border-radius: 10px;">
+    <h6>Avatar</h6>
+    <p  style="font-size: 13px;">All parts of your ski jumping suit should be made of the same kind of air permeable material. The thicker the suit, the better, since you may be out on the slopes perfecting your tricks</p>
+  </div>
+  <p class="mb-2 px-2 mb-1"style="font-size: 13px;">mar.30 nov 2021 à 17:14</p>
+  </div>
+  </div>
+</section>
+<!--pagination-->
+<div id="loadMore" class="d-flex justify-content-center my-3"><a href=""class="btn btn-dark btn-sm">Load more</a></div>
+</main>
+{% endblock %}
