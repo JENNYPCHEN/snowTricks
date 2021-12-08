@@ -1,0 +1,2 @@
+open sans extra bold
+gentium book basic

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="comment", indexes={@ORM\Index(name="fk_comment_trick1_idx", columns={"trick_id"}), @ORM\Index(name="fk_comment_user1_idx", columns={"user_id"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  */
 class Comment
 {
@@ -40,7 +41,7 @@ class Comment
      *
      * @ORM\ManyToOne(targetEntity="Trick")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      * })
      */
     private $trick;

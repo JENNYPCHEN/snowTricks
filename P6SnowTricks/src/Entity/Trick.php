@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="trick", indexes={@ORM\Index(name="fk_trick_category1_idx", columns={"category_id"}), @ORM\Index(name="fk_trick_user_idx", columns={"user_id"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
+
  */
 class Trick
 {
@@ -24,7 +26,7 @@ class Trick
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=45, nullable=false)
+     * @ORM\Column(name="name", type="string", length=45, nullable=false,unique=true)
      */
     private $name;
 
