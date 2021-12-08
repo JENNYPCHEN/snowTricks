@@ -9,7 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="category")
  * @ORM\Entity
+<<<<<<< HEAD
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+=======
+>>>>>>> cb452f5467455789c81e53c589cfbcdbd45a4e01
  */
 class Category
 {

@@ -9,7 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="comment", indexes={@ORM\Index(name="fk_comment_trick1_idx", columns={"trick_id"}), @ORM\Index(name="fk_comment_user1_idx", columns={"user_id"})})
  * @ORM\Entity
+<<<<<<< HEAD
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
+=======
+>>>>>>> cb452f5467455789c81e53c589cfbcdbd45a4e01
  */
 class Comment
 {
@@ -41,7 +44,11 @@ class Comment
      *
      * @ORM\ManyToOne(targetEntity="Trick")
      * @ORM\JoinColumns({
+<<<<<<< HEAD
      * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
+=======
+     *   @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
+>>>>>>> cb452f5467455789c81e53c589cfbcdbd45a4e01
      * })
      */
     private $trick;

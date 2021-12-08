@@ -9,7 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"}), @ORM\UniqueConstraint(name="username_UNIQUE", columns={"username"})})
  * @ORM\Entity
+<<<<<<< HEAD
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+=======
+>>>>>>> cb452f5467455789c81e53c589cfbcdbd45a4e01
  */
 class User
 {
