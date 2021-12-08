@@ -9,6 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="trick", indexes={@ORM\Index(name="fk_trick_category1_idx", columns={"category_id"}), @ORM\Index(name="fk_trick_user_idx", columns={"user_id"})})
  * @ORM\Entity
+<<<<<<< HEAD
+ * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
+
+=======
+>>>>>>> cb452f5467455789c81e53c589cfbcdbd45a4e01
  */
 class Trick
 {
@@ -24,7 +29,11 @@ class Trick
     /**
      * @var string
      *
+<<<<<<< HEAD
+     * @ORM\Column(name="name", type="string", length=45, nullable=false,unique=true)
+=======
      * @ORM\Column(name="name", type="string", length=45, nullable=false)
+>>>>>>> cb452f5467455789c81e53c589cfbcdbd45a4e01
      */
     private $name;
 
