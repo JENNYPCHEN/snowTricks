@@ -26,4 +26,13 @@ class TrickController extends AbstractController
             'controller_name' => 'TrickController',
         ]);
     }
+     /**
+     * @Route("/editTrick/{id?}", name="editTrickPage")
+     */
+    public function editTrickPage($id): Response
+    {
+        return $this->render('trick/editTrick.html.twig', [
+            'controller_name' => 'TrickController',
+        ]);
+    }
 }
