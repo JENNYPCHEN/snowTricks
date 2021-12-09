@@ -1,14 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} create trick{% endblock %}
+{% block title %} edit trick{% endblock %}
 
 {% block body %}
 
 <!--creak Trick form-->
- <main style="background-image: url('{{asset('img/background.jpg')}}');background-position: bottom center;
- ">
+ <main >
  
-  <h2 class="text-center py-3 my-3 title fw-bold" style="color:#004f80">Creation de figure de snowboard</h2>
+  <h2 class="text-center py-3 my-3 title fw-bold" style="color:#004f80">Modification de figure de snowboard</h2>
   <div class="container"> 
   <section id="createTrickForm" class="row d-flex justify-content-center">
     <form class=" col-sm-8 col-ml-8 " method="post" enctype="multipart/form-data">
@@ -35,7 +34,44 @@
                   <option value="L'autre">L'autre</option>
                   </select> 
                    </div>
-    
+
+                        <!-- Gallery -->
+     <div class="d-flex justify-content-center" >
+      <a id="galleryButton" class="flex col-4 mb-4 btn btn-primary d-xs-block d-sm-block " data-bs-toggle="collapse" href="#editGallery" role="button" aria-expanded="false" aria-controls="editGallery">
+       Voir les images </a>
+     </div>
+   <!--class collapse when small screen-->
+
+                   <div id="editGallery" class="row justify-content-center collapse ">
+                    <div class="col-lg-3 col-xs-3 mb-4 mb-lg-0">
+                      <div class="card mb-2">
+                        <img class="card-img-top" src="{{asset('img/pexels-kourtney-gundersen-9867383.jpg')}}">
+                        <div class="card-text d-flex justify-content-end"> 
+                            <a class="mx-1"href="#!" role="button"><i class="fas fa-pencil-alt text-right fa-sm"></i></a>
+                        </div>
+                      </div>
+                    </div> 
+                    <div class="col-lg-3 col-xs-3 mb-4 mb-lg-0">
+                      <div class="card mb-2">
+                        <img class="card-img-top" src="{{asset('img/pexels-kourtney-gundersen-9867383.jpg')}}">
+                        <div class="card-text d-flex justify-content-end"> 
+                            <a class="mx-1"href="#!" role="button"><i class="fas fa-pencil-alt text-right fa-sm"></i></a>
+                        </div>
+                      </div>
+                    </div>              
+
+                    <div class="col-lg-3 col-xs-3 mb-4 mb-lg-0">
+                      <div class="card mb-2">
+                        <iframe class='embed-responsive-item'  src="https://www.youtube.com/embed/CjJh2Qen_Xg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="card-text d-flex justify-content-end"> 
+                            <a class="mx-1"href="#!" role="button"><i class="fas fa-pencil-alt text-right fa-sm"></i></a>
+                        </div>
+                      </div>
+                    </div>     
+                    </div>
+        
+
+
         <div class="m-3 row ">
           <div class="col-12">
         <label for="upload_images" class="form-label">Les images</label>
@@ -57,7 +93,7 @@
     </div>
     </div>
       <div id="addFields"></div>
-    
+
       <div class=" m-3 d-flex justify-content-center">
       <button class="btn btn-lg btn-primary" type="submit">Envoyer</button>
     </div>
@@ -66,6 +102,7 @@
       </section>  
     </div> 
   </main>
+
 
 {% endblock %}
 {% block js %}/{% endblock %}

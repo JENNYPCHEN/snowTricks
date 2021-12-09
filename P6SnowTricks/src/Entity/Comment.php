@@ -32,7 +32,7 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\Column(name="create_date", type="string", length=45, nullable=false)
+     * @ORM\Column(name="create_date", type="datetime", length=45, nullable=false)
      */
     private $createDate;
 
