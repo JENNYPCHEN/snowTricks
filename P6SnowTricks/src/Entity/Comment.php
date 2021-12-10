@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,7 +31,7 @@ class Comment
     private $message;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="create_date", type="datetime", length=45, nullable=false)
      */
@@ -73,12 +74,12 @@ class Comment
         return $this;
     }
 
-    public function getCreateDate(): ?string
+    public function getCreateDate(): ?\DateTimeInterface
     {
         return $this->createDate;
     }
 
-    public function setCreateDate(string $createDate): self
+    public function setCreateDate(\DateTimeInterface $createDate): self
     {
         $this->createDate = $createDate;
 
@@ -108,6 +109,5 @@ class Comment
 
         return $this;
     }
-
 
 }

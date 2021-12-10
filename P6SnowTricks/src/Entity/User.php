@@ -24,7 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+   // private $roles = [];
 
         /**
      * @var string
@@ -109,7 +109,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->id;
+        return (string) $this->username;
     }
 
     public function setUsername(string $username): self
@@ -241,6 +241,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->image = $image;
 
         return $this;
+    }
+    public function __toString() {
+        return $this->username;
+        return $this->id;
+        return $this->email;
+        return $this->image;
     }
 
 }
