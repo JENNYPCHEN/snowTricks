@@ -70,7 +70,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="trick_delete", methods={"POST"})
+     * @Route("/{id}/delete", name="trick_delete", methods={"POST"})
      */
     public function delete(Request $request, Trick $trick, EntityManagerInterface $entityManager): Response
     {
@@ -79,7 +79,7 @@ class TrickController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('trick_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('homePage', [], Response::HTTP_SEE_OTHER);
     }
 
       /**
