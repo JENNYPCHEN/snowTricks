@@ -61,19 +61,20 @@
 </section>
 
 <!--leave message-->
+       {% include 'comment/_add_form.html.twig' %}
 
-<form class="row d-flex justify-content-center">
+<!--<form class="row d-flex justify-content-center">
   <div class="mb-3 col-5 mx-1">
     <input type="text" class="form-control" id="messageBox" aria-describedby="messageBox" placeholder="Commentaire">  
   </div>
   <div class="mb-3 col-1 ">
   <button type="submit" class="btn btn-outline-primary"><i class="fas fa-paper-plane"></i></button>
   </div>
-  </form>
+  </form>-->
   <hr class="dotted">
 <!--comment-->
 <section> 
-
+{% if trick.comments %}
 {% for comment in trick.comments %}
 <div class="row d-flex justify-content-center">
   <div class="col-md-1 col-2"><img src="{{asset(comment.user.image)}}" class="avatar text-right"></div>
@@ -86,6 +87,7 @@
   </div>
   </div>
   {% endfor %}
+  {% endif %}
   
   
 </section>
