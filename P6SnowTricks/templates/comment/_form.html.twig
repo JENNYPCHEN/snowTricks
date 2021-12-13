@@ -1,0 +1,8 @@
+{{ form_start(commentForm, {'attr':{'class':'row d-flex justify-content-center'}}) }}
+   <div class="mb-3 col-5 mx-1">
+    {{ form_widget(commentForm.message , {'attr':{'class':'form-control', 'id':'messageBox', 'aria-describedby':'messageBox','placeholder':'Commentaire'}})}}
+    </div>
+    <div class="mb-3 col-1 ">
+    <button class="btn"><i class="fas fa-paper-plane"></i></button>
+    </div>
+{{ form_end(commentForm) }}

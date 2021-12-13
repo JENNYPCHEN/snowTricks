@@ -167,7 +167,7 @@ class Trick
 
     public function __toString()
     {
-        return $this->id;
+        return $this->name;
     }
 
     public function __construct()
