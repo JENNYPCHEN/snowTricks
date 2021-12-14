@@ -13,11 +13,11 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="homePage", methods={"GET"})
      */
-    public function indexPage(TrickRepository $trickRepository, CacheInterface $cache): Response
+    public function indexPage(TrickRepository $trickRepository): Response
     {    
     
         return $this->render('home/index.html.twig', [
-            'tricks' => $trickRepository->findAll(),
+            'tricks' => $trickRepository->findBy([],['createDate'=>'DESC']),
         ]);
     }
 }
