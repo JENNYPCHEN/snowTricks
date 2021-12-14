@@ -21,6 +21,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     /**
+     * @Route("/createTrick", name="createTrickPage")
+     */
+    public function createTrickPage(
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $trick = new Trick();
+        $trickForm = $this->createForm(TrickType::class, $trick);
+        $trickForm->handleRequest($request);
+        return $this->render('trick/createTrick.html.twig', [
+            'trickForm' => $trickForm->createView(),
+        ]);
+    }
+    /**
      * @Route("/{name}", name="trickPage", methods={"GET", "POST"})
      */
     public function show(
@@ -126,15 +140,6 @@ class TrickController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/createTrick", name="createTrickPage")
-     */
-    public function createTrickPage(): Response
-    {
-        return $this->render('trick/createTrick.html.twig', [
-            'controller_name' => 'TrickController',
-        ]);
-    }
     /**
      * @Route("/editTrick/{id?}", name="editTrickPage")
      */
