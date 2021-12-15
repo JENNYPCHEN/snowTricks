@@ -7,7 +7,7 @@
    <main class='container' id="trick">
    <section >
     <!--main image-->
-    <div class="p-5 mb-5 text-center mainImage " style="background-image: url(' {{asset(trick.images.first.path)}}');">
+    <div class="p-5 mb-5 text-center mainImage " style="background-image: url(' {{asset('img/image_tricks/'~ trick.images.first.path)}}');">
       <h1 class="mt-5 mb-4 titleTrick">{{trick.name|title|striptags}}</h1>
     </div>
     <div class="text-end"> 
@@ -30,7 +30,7 @@
   {% for image in trick.images %}
 <div class="col-lg-2 col-sm-3 pb-4 mb-4 mb-lg-0">
   <div class="card mb-2">
-    <img class="card-img-top" src="{{asset(image.path)}}">
+    <img class="card-img-top" src="{{asset('img/image_tricks/'~ image.path)}}">
   </div>
 </div> 
 {% endfor %}

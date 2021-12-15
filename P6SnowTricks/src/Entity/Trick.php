@@ -184,7 +184,7 @@ class Trick
     {
         return $this->images;
     }
-    public function addImages(Image $image): self
+    public function addImage(Image $image): self
     {
         if (!$this->images->contains($image)) {
             $this->images[] = $image;
