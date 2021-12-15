@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Image;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
+use App\Service\FileUploaderHelper;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,15 +24,40 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/createTrick", name="createTrickPage")
+     * @Route("/createTrick", name="createTrickPage", methods={"GET", "POST"})
      */
     public function createTrickPage(
         Request $request,
+        FileUploaderHelper $fileUploaderHelper,
         EntityManagerInterface $entityManager
     ): Response {
         $trick = new Trick();
         $trickForm = $this->createForm(TrickType::class, $trick);
         $trickForm->handleRequest($request);
+        $videoFiles = $trickForm->get('videos')->getData();
+        var_dump($videoFiles);
+      /*  if ($trickForm->isSubmitted() && $trickForm->isValid()) {
+            $imageFiles = $trickForm->get('images')->getData();
+            $imageDirectory =
+                $this->getParameter('kernel.project_dir') .
+                '/public/img/image_tricks';
+            if ($imageFiles) {
+                $fileUploaderHelper->uploadImage(
+                    $imageDirectory,
+                    $imageFiles,
+                    $trick
+                );
+            }
+            $trick->setCreateDate(new \Datetime());
+            $entityManager->persist($trick);
+            $entityManager->flush();
+
+            return $this->redirectToRoute(
+                'homePage',
+                [],
+                Response::HTTP_SEE_OTHER
+            )
+        }*/
         return $this->render('trick/createTrick.html.twig', [
             'trickForm' => $trickForm->createView(),
         ]);

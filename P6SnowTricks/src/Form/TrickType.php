@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Category;
+use App\Entity\Image;
 use App\Entity\Trick;
 use App\Form\ImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -29,24 +30,24 @@ class TrickType extends AbstractType
             ->add('description', TextareaType::class, [
                 'required' => true,
                 'label' => 'La description',
-                ])
-            ->add('category', EntityType::class,[
+            ])
+            ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'label' => 'Le groupe de la figure',
-                'placeholder'=>'----Choissiez le groupe de la figure----',
-                'required' => true]
-            )
-            ->add('images', FileType::class, [
-                'mapped' => false,
-                'label' => 'Les images',
-                'empty_data' => 'img/image_tricks/5.jpg',
-                'required' => false,
-                'multiple' => true,
+                'placeholder' => '----Choissiez le groupe de la figure----',
+                'required' => true,
             ])
+            ->add('images', FileType::class, [
+                'multiple'=>true,
+                'mapped'=>false,
+                'required' => false,
+                'empty_data' => 'default.jpg'
+            ])
+
             ->add('videos', TextType::class, [
                 'mapped' => false,
                 'required' => false,
-                'label' =>'Les videos',
+                'label' => 'Les videos',
             ]);
     }
 

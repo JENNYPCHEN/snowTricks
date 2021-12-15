@@ -84,7 +84,7 @@
             <div class="card mb-1">
               <a href="{{ path('trickPage', {'name': trick.name}) }}">
                {% for image in trick.images |slice(0,1)%}
-               <img class="card-img-top" src="{{image.path}}">
+               <img class="card-img-top" src="{{asset('img/image_tricks/'~image.path)}}">
                {% endfor %}
               <div class="card-body d-flex justify-content-between"> 
                 <div><h5 class="card-title"> {{trick.name|striptags}}</h5></div>
