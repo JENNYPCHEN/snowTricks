@@ -24,7 +24,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/createTrick", name="createTrickPage", methods={"GET", "POST"})
+     * @Route("/createtrick", name="createTrickPage", methods={"GET", "POST"})
      */
     public function createTrickPage(
         Request $request,
@@ -65,7 +65,7 @@ class TrickController extends AbstractController
         ]);
     }
     /**
-     * @Route("/{name}", name="trickPage", methods={"GET", "POST"})
+     * @Route("/{id}/{slug}", name="trickPage", methods={"GET", "POST"})
      */
     public function show(
         Trick $trick,
