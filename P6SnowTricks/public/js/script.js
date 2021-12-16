@@ -60,16 +60,14 @@ function preview_image()
  }
 }
 //multiple videos upload
-$(document).ready(function(){
-var i=1;
-$('#addVideos').click(function(){
-i++;
-$('#addFields').append(' <div id="row'+i+'" class="m-3 row "><div class=" col-12 d-flex justify-content-center wrapper"><div class="col-11"><input type="text" id="trick_videos" name="trick[videos][]" class="mb-1 form-control name_list col-11" /></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="mx-2 btn btn-danger btn_remove"><i class="fas fa-times"></i></button></div></div></div>')
-$(document).on('click', '.btn_remove', function(){
-var button_id = $(this).attr("id"); 
-$('#row'+button_id+'').remove();
-});
-});})
-//test
-
-
+jQuery(document).ready(function() {
+          var index=0;
+          $('.addVideos').click(function(){
+          index++;
+          $('.addFields').append('<div id="row'+index+'" class="m-3 row d-flex justify-content-start "><div class="col-11"><input id="trick_videos_'+index+'_path"name="trick[videos]['+index+'][path]"class="form-control"/></div><div class="col-1"><button type="button" name="remove" id="'+index+'" class="mx-2 btn btn-danger btn_remove">X</button></div></div></div>')
+          $(document).on('click', '.btn_remove', function(){
+          var button_id = $(this).attr("id"); 
+          $('#row'+button_id+'').remove();
+          });
+          });})
+          

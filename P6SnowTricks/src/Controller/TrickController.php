@@ -34,9 +34,8 @@ class TrickController extends AbstractController
         $trick = new Trick();
         $trickForm = $this->createForm(TrickType::class, $trick);
         $trickForm->handleRequest($request);
-        $videoFiles = $trickForm->get('videos')->getData();
-        var_dump($videoFiles);
-      /*  if ($trickForm->isSubmitted() && $trickForm->isValid()) {
+        if ($trickForm->isSubmitted() && $trickForm->isValid()) {
+            $videoFiles = $trickForm->get('videos')->getData();
             $imageFiles = $trickForm->get('images')->getData();
             $imageDirectory =
                 $this->getParameter('kernel.project_dir') .
@@ -48,6 +47,9 @@ class TrickController extends AbstractController
                     $trick
                 );
             }
+            if($videoFiles){
+                $fileUploaderHelper->uploadVideo($videoFiles,$trick);
+            }
             $trick->setCreateDate(new \Datetime());
             $entityManager->persist($trick);
             $entityManager->flush();
@@ -56,8 +58,8 @@ class TrickController extends AbstractController
                 'homePage',
                 [],
                 Response::HTTP_SEE_OTHER
-            )
-        }*/
+            );
+        }
         return $this->render('trick/createTrick.html.twig', [
             'trickForm' => $trickForm->createView(),
         ]);
@@ -111,34 +113,6 @@ class TrickController extends AbstractController
         }
 
         return $this->redirectToRoute('homePage', [], Response::HTTP_SEE_OTHER);
-    }
-
-    /**
-     * @Route("/new", name="trick_new", methods={"GET", "POST"})
-     */
-    public function new(
-        Request $request,
-        EntityManagerInterface $entityManager
-    ): Response {
-        $trick = new Trick();
-        $form = $this->createForm(TrickType::class, $trick);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($trick);
-            $entityManager->flush();
-
-            return $this->redirectToRoute(
-                'homePage',
-                [],
-                Response::HTTP_SEE_OTHER
-            );
-        }
-
-        return $this->renderForm('trick/createTrick.html.twig', [
-            'trick' => $trick,
-            'form' => $form,
-        ]);
     }
 
     /**

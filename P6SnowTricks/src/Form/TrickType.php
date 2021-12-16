@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -44,10 +45,15 @@ class TrickType extends AbstractType
                 'empty_data' => 'default.jpg'
             ])
 
-            ->add('videos', TextType::class, [
-                'mapped' => false,
+            ->add('videos', CollectionType::class, [
+                'mapped'=>false,
+                'entry_type'=>VideoType::class,
+                'allow_add'=>true,
+                'allow_delete'=>true,
                 'required' => false,
                 'label' => 'Les videos',
+                'prototype' => true,
+                'help'=>' veuillez copier et coller le lien youtube.',
             ]);
     }
 
