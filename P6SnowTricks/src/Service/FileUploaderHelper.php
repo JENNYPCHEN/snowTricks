@@ -3,6 +3,7 @@ namespace App\Service;
 use App\Entity\Image;
 use App\Entity\Video;
 use App\Entity\Trick;
+use SimpleXMLElement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FileUploaderHelper
@@ -23,18 +24,19 @@ class FileUploaderHelper
             }
         }
     }
-    public function uploadVideo($videos,$trick)
+    public function uploadVideo($videos, $trick)
     {
         foreach ($videos as $video) {
+            $videoString=serialize($video);
             preg_match(
                 '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i',
-                $video,
+                $videoString,
                 $match
             );
             $youtubeId = $match[1];
-            $video = new Video();
-            $video->setPath($youtubeId);
-            $trick->addVideos($video);
+            $vid = new Video();
+            $vid->setPath($youtubeId);
+            $trick->addVideos($vid);
         }
     }
 }
