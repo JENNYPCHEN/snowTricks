@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use App\Form\TrickType;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 /**
  * Trick
@@ -165,6 +167,13 @@ class Trick
         return $this;
     }
 
+    public function getSlug()
+    {
+      $slugger=new AsciiSlugger();
+      $slug=$slugger->slug($this->name);
+      return strtolower($slug);
+    }
+
     public function __toString()
     {
         return $this->name;
@@ -257,5 +266,4 @@ class Trick
         }
         return $this;
     }
-    
 }
