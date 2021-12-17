@@ -33,10 +33,12 @@ class FileUploaderHelper
                 $videoString,
                 $match
             );
+            (isset($match[1])) ? $match[1] : false;
             $youtubeId = $match[1];
             $vid = new Video();
             $vid->setPath($youtubeId);
             $trick->addVideos($vid);
-        }
+        
+    }
     }
 }
