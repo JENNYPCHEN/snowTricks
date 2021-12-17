@@ -65,8 +65,9 @@
   <hr class="dotted">
 <!--comment-->
 <section> 
-{% if trick.comments %}
-{% for comment in trick.comments %}
+
+{% if comments %}
+{% for comment in comments%}
 <div class="row d-flex justify-content-center">
   <div class="col-md-1 col-2"><img src="{{asset(comment.user.image)}}" class="avatar text-right"></div>
   <div class="col-md-5 col-8">

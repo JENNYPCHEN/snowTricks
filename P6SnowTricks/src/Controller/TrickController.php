@@ -8,6 +8,7 @@ use App\Entity\Trick;
 use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\TrickType;
+use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use App\Service\FileUploaderHelper;
 use Doctrine\ORM\EntityManager;
@@ -22,7 +23,30 @@ use Symfony\Component\Routing\Annotation\Route;
  * @Route("/trick")
  */
 class TrickController extends AbstractController
+
 {
+    
+    /**
+     * @Route("/delete/{id}", name="trick_delete", methods={"POST"})
+     */
+    public function delete(
+        Request $request,
+        Trick $trick,
+        EntityManagerInterface $entityManager
+    ): Response {
+        if (
+            $this->isCsrfTokenValid(
+                'delete' . $trick->getId(),
+                $request->request->get('_token')
+            )
+        ) {
+            $entityManager->remove($trick);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('homePage', [], Response::HTTP_SEE_OTHER);
+    }
+
     /**
      * @Route("/createtrick", name="createTrickPage", methods={"GET", "POST"})
      */
@@ -47,8 +71,9 @@ class TrickController extends AbstractController
                     $trick
                 );
             }
-            if($videoFiles){
-                $fileUploaderHelper->uploadVideo($videoFiles,$trick);
+           if ($videoFiles===NULL) {
+           }else
+              {  $fileUploaderHelper->uploadVideo($videoFiles, $trick);
             }
             $trick->setCreateDate(new \Datetime());
             $entityManager->persist($trick);
@@ -70,6 +95,7 @@ class TrickController extends AbstractController
     public function show(
         Trick $trick,
         Request $request,
+        CommentRepository $commentRepository,
         EntityManagerInterface $entityManager
     ): Response {
         $comment = new Comment();
@@ -83,37 +109,17 @@ class TrickController extends AbstractController
 
             return $this->redirectToRoute(
                 'trickPage',
-                ['name' => $trick->getName()],
-                Response::HTTP_SEE_OTHER
+                ['slug' => $trick->getSlug(), 'id' => $trick->getId(),
+                Response::HTTP_SEE_OTHER]
             );
         }
         return $this->render('trick/trick.html.twig', [
             'trick' => $trick,
-            'comment' => $comment,
+            'comments'=>$commentRepository->findBy(['trick'=>$trick->getId()],['createDate'=>'DESC']),
             'commentForm' => $commentForm->createView(),
         ]);
     }
 
-    /**
-     * @Route("/{id}/delete", name="trick_delete", methods={"POST"})
-     */
-    public function delete(
-        Request $request,
-        Trick $trick,
-        EntityManagerInterface $entityManager
-    ): Response {
-        if (
-            $this->isCsrfTokenValid(
-                'delete' . $trick->getId(),
-                $request->request->get('_token')
-            )
-        ) {
-            $entityManager->remove($trick);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('homePage', [], Response::HTTP_SEE_OTHER);
-    }
 
     /**
      * @Route("/{id}/edit", name="trick_edit", methods={"GET", "POST"})
