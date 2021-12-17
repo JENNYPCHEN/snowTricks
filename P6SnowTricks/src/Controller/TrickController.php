@@ -71,8 +71,7 @@ class TrickController extends AbstractController
                     $trick
                 );
             }
-           if ($videoFiles===NULL) {
-           }else
+           if ($videoFiles) 
               {  $fileUploaderHelper->uploadVideo($videoFiles, $trick);
             }
             $trick->setCreateDate(new \Datetime());

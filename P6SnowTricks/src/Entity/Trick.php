@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Trick
@@ -14,7 +15,7 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
  * @ORM\Table(name="trick", indexes={@ORM\Index(name="fk_trick_category1_idx", columns={"category_id"}), @ORM\Index(name="fk_trick_user_idx", columns={"user_id"})})
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
-
+ * @UniqueEntity(fields={"name"}, message="Le nom existe déjà. Veuillez choisir un autre nom.")
  */
 class Trick
 {
@@ -24,6 +25,7 @@ class Trick
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * 
      */
     private $id;
 
