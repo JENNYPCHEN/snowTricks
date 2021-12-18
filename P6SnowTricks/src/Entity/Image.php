@@ -27,7 +27,7 @@ class Image
      *
      * @ORM\Column(name="path", type="string", length=255, nullable=false)
      */
-    private $path = '1.jpg';
+    private $path = 'default.jpg';
 
     /**
      * @var \Trick

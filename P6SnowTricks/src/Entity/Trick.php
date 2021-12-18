@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trick
@@ -14,7 +16,7 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
  * @ORM\Table(name="trick", indexes={@ORM\Index(name="fk_trick_category1_idx", columns={"category_id"}), @ORM\Index(name="fk_trick_user_idx", columns={"user_id"})})
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
-
+ * @UniqueEntity(fields={"name"}, message="Le nom existe déjà. Veuillez choisir un autre nom.")
  */
 class Trick
 {
@@ -24,6 +26,7 @@ class Trick
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * 
      */
     private $id;
 
@@ -31,6 +34,7 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=45, nullable=false,unique=true)
+     * @Assert\NotBlank(message="Veuillez remplir le champ.")
      */
     private $name;
 
@@ -38,6 +42,7 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="description", type="text", length=0, nullable=false)
+     * @Assert\NotBlank(message="Veuillez remplir le champ.")
      */
     private $description;
 

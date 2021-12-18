@@ -10,7 +10,8 @@ class FileUploaderHelper
 {
     public function uploadImage($targetDirectory, $images, $trick)
     {
-        if ($images === 'default.jpg') {
+        if ($images ==null) {
+            $images = 'default.jpg';
             $img = new Image();
             $img->setPath($images);
             $trick->addImage($img);
@@ -33,11 +34,12 @@ class FileUploaderHelper
                 $videoString,
                 $match
             );
-            (isset($match[1])) ? $match[1] : false;
+            if(isset($match[1])){
             $youtubeId = $match[1];
             $vid = new Video();
             $vid->setPath($youtubeId);
             $trick->addVideos($vid);
+        }
         
     }
     }
