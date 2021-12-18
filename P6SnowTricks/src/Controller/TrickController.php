@@ -43,7 +43,7 @@ class TrickController extends AbstractController
             $entityManager->remove($trick);
             $entityManager->flush();
         }
-
+        $this->addFlash('success', 'Le trick a été supprimé avec succès');
         return $this->redirectToRoute('homePage', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -64,19 +64,20 @@ class TrickController extends AbstractController
             $imageDirectory =
                 $this->getParameter('kernel.project_dir') .
                 '/public/img/image_tricks';
-            if ($imageFiles) {
+
                 $fileUploaderHelper->uploadImage(
                     $imageDirectory,
                     $imageFiles,
                     $trick
                 );
-            }
+    
            if ($videoFiles) 
               {  $fileUploaderHelper->uploadVideo($videoFiles, $trick);
             }
             $trick->setCreateDate(new \Datetime());
             $entityManager->persist($trick);
             $entityManager->flush();
+            $this->addFlash('success', 'Le trick a été créé avec succès');
 
             return $this->redirectToRoute(
                 'homePage',
@@ -84,6 +85,7 @@ class TrickController extends AbstractController
                 Response::HTTP_SEE_OTHER
             );
         }
+        $this->addFlash('notice', ' Opps quelque chose ne va pas ! Vérifiez surtout si vous avez mis un lien youtube valide.');
         return $this->render('trick/createTrick.html.twig', [
             'trickForm' => $trickForm->createView(),
         ]);

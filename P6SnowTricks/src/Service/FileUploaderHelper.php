@@ -10,7 +10,8 @@ class FileUploaderHelper
 {
     public function uploadImage($targetDirectory, $images, $trick)
     {
-        if ($images === 'default.jpg') {
+        if ($images ==null) {
+            $images = 'default.jpg';
             $img = new Image();
             $img->setPath($images);
             $trick->addImage($img);

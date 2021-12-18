@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trick
@@ -33,6 +34,7 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=45, nullable=false,unique=true)
+     * @Assert\NotBlank(message="Veuillez remplir le champ.")
      */
     private $name;
 
@@ -40,6 +42,7 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="description", type="text", length=0, nullable=false)
+     * @Assert\NotBlank(message="Veuillez remplir le champ.")
      */
     private $description;
 

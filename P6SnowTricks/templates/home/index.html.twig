@@ -3,7 +3,11 @@
 {% block title %}la communauté des snowboardeurs{% endblock %}
 
 {% block body %}
-
+{% for message in app.flashes('success') %}
+    <div class="flash-notice alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
    <main>
     <section id="carousel" class="position-relative">
       <!--carousel-->
