@@ -11,7 +11,7 @@
       <h1 class="mt-5 mb-4 titleTrick">{{trick.name|title|striptags}}</h1>
     </div>
     <div class="text-end"> 
-      <a class="mx-1"href="#!" role="button"><i class="fas fa-1x fa-pencil-alt text-right fa-sm"></i></a>
+    <a href="{{ path('trick_edit', {'id': trick.id})}}"><button class="btn btn-sm btn-outline-secondary m-1"><i class="fas fa-pencil-alt text-right fa-sm"></i></button></a>
        {% include 'trick/_delete_form.html.twig' %}
   </div>
  
@@ -69,7 +69,7 @@
 {% if comments %}
 {% for comment in comments%}
 <div class="row d-flex justify-content-center">
-  <div class="col-md-1 col-2"><img src="{{asset(comment.user.image)}}" class="avatar text-right"></div>
+  <div class="col-md-1 col-2"><img src="{{asset('img/image_profiles/'~comment.user.image)}}" class="avatar text-right"></div>
   <div class="col-md-5 col-8">
   <div class=" bg-light px-2 p-1" style="border-radius: 10px;">
     <h6>{{comment.user.username}}</h6>
