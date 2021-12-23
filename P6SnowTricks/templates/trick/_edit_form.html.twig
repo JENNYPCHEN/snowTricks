@@ -1,0 +1,82 @@
+{{ form_start(trickForm,{'attr':{'class':'col-sm-8 col-ml-8'}}) }}
+<div class="m-3">
+{{ form_row(trickForm.name,{'attr':{'class':'form-control'}}) }}
+</div>
+<div class="m-3">
+{{ form_row(trickForm.description,{'attr':{'class':'form-control','rows':'5'}}) }}
+</div>
+<div class="m-3">
+{{ form_row(trickForm.category,{'attr':{'class':'form-control '}}) }}
+</div>
+
+<!-- Gallery -->
+<div class="d-flex justify-content-center">
+  <a
+    id="galleryButton"
+    class="flex col-4 mb-4 btn btn-primary d-md-none d-lg-none d-xl-none"
+    data-bs-toggle="collapse"
+    href="#editGallery"
+    role="button"
+    aria-expanded="false"
+    aria-controls="editGallery"
+  >
+    Voir les images
+  </a>
+</div>
+<!--class collapse when small screen-->
+<div id="editGallery" class="collapse d-md-block d-lg-block d-xl-block">
+  <div class="row justify-content-center">
+    {% if trick.images|default %}
+     {% for image in trick.images %}
+    <div class="col-lg-3 col-xs-3 mb-4 mb-lg-0 ">
+      <div class="card mb-2">
+        <img
+          class="card-img-top"
+         src="{{asset('img/image_tricks/'~image.path)}}">
+        
+        <div class="card-text d-flex justify-content-end">
+        
+          {% include 'image/_delete_form.html.twig' %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+     {% endif %}
+         {% if trickForm.vars.data.videos|default %}
+     {% for video in trickForm.vars.data.videos %}
+    <div class="col-lg-3 col-xs-3 mb-4 mb-lg-0">
+      <div class="card mb-2">
+    <iframe class='embed-responsive-item'  src="https://www.youtube.com/embed/{{video.path|striptags}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+        <div class="card-text d-flex justify-content-end">
+              {% include 'video/_delete_form.html.twig' %}
+        </div>
+      </div>
+    </div>
+     {% endfor %}
+     {% endif %}
+  </div>
+
+
+<div class="m-3 row ">
+{{ form_row(trickForm.images,{'attr':{'class':'form-control mb-1','onchange':'preview_image();','type':'file','accept':'image/*'}})}}
+<div id="image_preview"class="d-flex justify-content-center"></div>
+</div>
+<div class="m-3 row d-flex justify-content-start">
+{{form_label(trickForm.videos)}}
+{{form_help(trickForm.videos)}}
+{{form_errors(trickForm.videos)}}
+<div class= "col-11">
+<input type="text" id="trick_videos_0_path" name="trick[videos][0][path]" inputmode="url" class="form-control">
+<div class="invalid-feedback"> Veuillez entrer un lien youtube.</div>
+</div>
+<div class="col-1">
+<button class="mx-2 btn btn-outline-secondary addVideos"type="button"><i class="fas fa-plus text-right fa-sm"></i></button>
+</div>
+{{form_errors(trickForm)}}
+</div>
+<div class="addFields"></div>
+<div class="p-5 d-flex justify-content-center"><button class="btn btn-lg btn-primary" type="submit">Envoyer</button></div>
+<div class="d-none">{{form_row(trickForm.videos)}}</div>
+
+{{ form_end(trickForm) }}

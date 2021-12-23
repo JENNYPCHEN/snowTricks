@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ImageController extends AbstractController
 {
-     /**
+  /**
      * @Route("/delete/{id}", name="image_delete", methods={"POST"})
      */
     public function delete(
@@ -33,10 +33,12 @@ class ImageController extends AbstractController
         ) {
             $entityManager->remove($image);
             $entityManager->flush();
+            $this->addFlash('success', 'Le image a été supprimé avec succès');
+            return $this->redirectToRoute('homePage', [], Response::HTTP_SEE_OTHER);
         }
-        $this->addFlash('success', 'Le image a été supprimé avec succès');
-        return $this->redirectToRoute('homePage', [], Response::HTTP_SEE_OTHER);
+       
     }
+    
     /**
      * @Route("/", name="image_index", methods={"GET"})
      */
