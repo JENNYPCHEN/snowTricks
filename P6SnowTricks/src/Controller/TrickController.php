@@ -156,7 +156,7 @@ class TrickController extends AbstractController
                     $imageFiles,
                     $trick
                 );
-            }
+           }
 
             if ($videoFiles) {
                 $fileUploaderHelper->uploadVideo($videoFiles, $trick);

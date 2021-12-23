@@ -26,7 +26,7 @@
 <!--class collapse when small screen-->
 <div id="editGallery" class="collapse d-md-block d-lg-block d-xl-block">
   <div class="row justify-content-center">
-    {% if trick.images|default %}
+    {% if trick.images %}
      {% for image in trick.images %}
     <div class="col-lg-3 col-xs-3 mb-4 mb-lg-0 ">
       <div class="card mb-2">
@@ -35,7 +35,7 @@
          src="{{asset('img/image_tricks/'~image.path)}}">
         
         <div class="card-text d-flex justify-content-end">
-        
+        <span class="d-none"> {% include 'image/_delete_form.html.twig' %}</span>
           {% include 'image/_delete_form.html.twig' %}
         </div>
       </div>
