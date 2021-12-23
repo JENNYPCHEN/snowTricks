@@ -9,99 +9,12 @@
  
   <h2 class="text-center py-3 my-3 title fw-bold" style="color:#004f80">Modification de figure de snowboard</h2>
   <div class="container"> 
-  <section id="createTrickForm" class="row d-flex justify-content-center">
-    <form class=" col-sm-8 col-ml-8 " method="post" enctype="multipart/form-data">
-        <div class="m-3 ">
-            <label for="name" class="form-label">Nom de la figure</label>
-            <input type="text" class="form-control" value="" name="name" placeholder="Title" required>
-        </div>
-        <div class="m-3 ">
-            <label for="description" class="form-label">La description</label>
-            <textarea rows="5" class="form-control" name="description" value=""placeholder="description" required></textarea>
-        </div>
-        <div class="m-3 ">
-          <label for="categoty" class="class-group pb-1 pt-1">Le groupe de la figure</label>
-          <select name="category" id="category" class="form-control" required="">
-            <option value="">----Choissiez le groupe de la figure----</option>
-          <option value="La manière de rider">La manière de rider</option>
-            <option value="Les grabs">Les grabs</option>
-            <option value="Les rotations">Les rotations</option>
-            <option value="Les flips">Les flips</option>
-            <option value="Les rotations désaxées">Les rotations désaxées</option>
-              <option value="Les slides">Les slides</option>
-              <option value="Les one foot tricks">Les one foot tricks</option>
-                <option value="Old School">Old School</option>
-                  <option value="L'autre">L'autre</option>
-                  </select> 
-                   </div>
-
-                        <!-- Gallery -->
-     <div class="d-flex justify-content-center" >
-      <a id="galleryButton" class="flex col-4 mb-4 btn btn-primary d-xs-block d-sm-block " data-bs-toggle="collapse" href="#editGallery" role="button" aria-expanded="false" aria-controls="editGallery">
-       Voir les images </a>
-     </div>
-   <!--class collapse when small screen-->
-
-                   <div id="editGallery" class="row justify-content-center collapse ">
-                    <div class="col-lg-3 col-xs-3 mb-4 mb-lg-0">
-                      <div class="card mb-2">
-                        <img class="card-img-top" src="{{asset('img/pexels-kourtney-gundersen-9867383.jpg')}}">
-                        <div class="card-text d-flex justify-content-end"> 
-                            <a class="mx-1"href="#!" role="button"><i class="fas fa-pencil-alt text-right fa-sm"></i></a>
-                        </div>
-                      </div>
-                    </div> 
-                    <div class="col-lg-3 col-xs-3 mb-4 mb-lg-0">
-                      <div class="card mb-2">
-                        <img class="card-img-top" src="{{asset('img/pexels-kourtney-gundersen-9867383.jpg')}}">
-                        <div class="card-text d-flex justify-content-end"> 
-                            <a class="mx-1"href="#!" role="button"><i class="fas fa-pencil-alt text-right fa-sm"></i></a>
-                        </div>
-                      </div>
-                    </div>              
-
-                    <div class="col-lg-3 col-xs-3 mb-4 mb-lg-0">
-                      <div class="card mb-2">
-                        <iframe class='embed-responsive-item'  src="https://www.youtube.com/embed/CjJh2Qen_Xg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <div class="card-text d-flex justify-content-end"> 
-                            <a class="mx-1"href="#!" role="button"><i class="fas fa-pencil-alt text-right fa-sm"></i></a>
-                        </div>
-                      </div>
-                    </div>     
-                    </div>
-        
-
-
-        <div class="m-3 row ">
-          <div class="col-12">
-        <label for="upload_images" class="form-label">Les images</label>
-        <input id="upload_images"class="form-control mb-1 " multiple type="file" name="upload_file[]" onchange="preview_image();">
-        <div id="image_preview" class="d-flex justify-content-center"></div>
-        </div>
-      </div>
-      <div class="m-3 row ">
-        <div class="col-12 ">
-          <label for="upload_videos" class="form-label d-inline" >Les videos<p class="d-inline mx-2"style="font-size:10px; color:grey;"> veuillez copier et coller le lien youtube.</p></label>
-          <div class="d-flex justify-content-center wrapper">
-          <div class="col-11 ">
-          <input id="upload_videos"class="form-control mb-1 " type="text" name="upload_videos[]">
-        </div>
-        <div class="col-1">
-        <button class="mx-2 btn btn-outline-secondary" type="button" name="addVideos" id="addVideos"><i class="fas fa-plus text-right fa-sm"></i></button>
-      </div>
-    </div>
-    </div>
-    </div>
-      <div id="addFields"></div>
-
-      <div class=" m-3 d-flex justify-content-center">
-      <button class="btn btn-lg btn-primary" type="submit">Envoyer</button>
-    </div>
-
-        </form>
-      </section>  
+  <section id="editTrickForm" class="row d-flex justify-content-center">
+    {% include 'trick/_edit_form.html.twig' %}
+ </section>  
     </div> 
   </main>
+
 
 
 {% endblock %}

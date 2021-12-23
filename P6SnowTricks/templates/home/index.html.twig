@@ -4,7 +4,7 @@
 
 {% block body %}
 {% for message in app.flashes('success') %}
-    <div class="flash-notice alert alert-success">
+    <div class="flash-notice alert alert-success my-0 py-0">
         {{ message }}
     </div>
 {% endfor %}
@@ -26,7 +26,7 @@
               <div class="carousel-caption">
                 <h1>SnowTricks</h1>
                 <p>La communauté de snowboarders</p>
-                <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+                <p><a class="btn btn-lg btn-primary" href="{{path('userSignupPage')}}">rejoignez-nous</a></p>
               </div>
             </div>
           </div>
@@ -37,7 +37,7 @@
               <div class="carousel-caption">
                 <h1>SnowTricks</h1>
                 <p>Partagez vos tricks. Apprenez ensemble.</p>
-                <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                <p><a class="btn btn-lg btn-primary" href="{{path('homePage')}}#tricks">plus d'informations</a></p>
               </div>
             </div>
           </div>
@@ -48,7 +48,7 @@
               <div class="carousel-caption">
                 <h1>SnowTricks</h1>
                 <p>Partageons. Apprenons. Amusons-nous ensemble</p>
-                <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+                <p><a class="btn btn-lg btn-primary" href="{{path('userSignupPage')}}">Inscrivez-vous</a></p>
               </div>
             </div>
           </div>
@@ -94,9 +94,8 @@
                 <div><h5 class="card-title"> {{trick.name|striptags}}</h5></div>
               </a>
                 <div>
-                  <a class="mx-1"href="#!" role="button"><i class="fas fa-pencil-alt text-right fa-sm"></i></a>
+                  <a href="{{ path('trick_edit', {'id': trick.id})}}"><button class="btn btn-sm btn-outline-secondary m-1"><i class="fas fa-pencil-alt text-right fa-sm"></i></button></a>
                  {% include 'trick/_delete_form.html.twig' %}
-                 {# <a class="mx-1 "href="{{ path('trick_delete', {'id': trick.id}) }}" onclick="return confirm(`Êtes-vous sûr de vouloir supprimer le trick : {{trick.name}} ?`)" role="button"><i class="fas fa-trash-alt fa-sm text-right"></i></a>#}
                 </div>
               </div>
             </div>

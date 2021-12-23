@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Image;
+use App\Entity\Trick;
 use App\Form\ImageType;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,6 +17,26 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ImageController extends AbstractController
 {
+     /**
+     * @Route("/delete/{id}", name="image_delete", methods={"POST"})
+     */
+    public function delete(
+        Request $request,
+        Image $image,
+        EntityManagerInterface $entityManager
+    ): Response {
+        if (
+            $this->isCsrfTokenValid(
+                'delete' . $image->getId(),
+                $request->request->get('_token')
+            )
+        ) {
+            $entityManager->remove($image);
+            $entityManager->flush();
+        }
+        $this->addFlash('success', 'Le image a été supprimé avec succès');
+        return $this->redirectToRoute('homePage', [], Response::HTTP_SEE_OTHER);
+    }
     /**
      * @Route("/", name="image_index", methods={"GET"})
      */
@@ -78,16 +99,5 @@ class ImageController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="image_delete", methods={"POST"})
-     */
-    public function delete(Request $request, Image $image, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($image);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('image_index', [], Response::HTTP_SEE_OTHER);
-    }
+   
 }

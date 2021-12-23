@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\TrickType;
 use App\Repository\CommentRepository;
+use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
 use App\Service\FileUploaderHelper;
 use Doctrine\ORM\EntityManager;
@@ -23,9 +24,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @Route("/trick")
  */
 class TrickController extends AbstractController
-
 {
-    
     /**
      * @Route("/delete/{id}", name="trick_delete", methods={"POST"})
      */
@@ -65,14 +64,14 @@ class TrickController extends AbstractController
                 $this->getParameter('kernel.project_dir') .
                 '/public/img/image_tricks';
 
-                $fileUploaderHelper->uploadImage(
-                    $imageDirectory,
-                    $imageFiles,
-                    $trick
-                );
-    
-           if ($videoFiles) 
-              {  $fileUploaderHelper->uploadVideo($videoFiles, $trick);
+            $fileUploaderHelper->uploadImage(
+                $imageDirectory,
+                $imageFiles,
+                $trick
+            );
+
+            if ($videoFiles) {
+                $fileUploaderHelper->uploadVideo($videoFiles, $trick);
             }
             $trick->setCreateDate(new \Datetime());
             $entityManager->persist($trick);
@@ -85,7 +84,10 @@ class TrickController extends AbstractController
                 Response::HTTP_SEE_OTHER
             );
         }
-        $this->addFlash('notice', ' Opps quelque chose ne va pas ! Vérifiez surtout si vous avez mis un lien youtube valide.');
+        $this->addFlash(
+            'notice',
+            ' Opps quelque chose ne va pas ! Vérifiez surtout si vous avez mis un lien youtube valide.'
+        );
         return $this->render('trick/createTrick.html.twig', [
             'trickForm' => $trickForm->createView(),
         ]);
@@ -108,54 +110,75 @@ class TrickController extends AbstractController
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute(
-                'trickPage',
-                ['slug' => $trick->getSlug(), 'id' => $trick->getId(),
-                Response::HTTP_SEE_OTHER]
-            );
+            return $this->redirectToRoute('trickPage', [
+                'slug' => $trick->getSlug(),
+                'id' => $trick->getId(),
+                Response::HTTP_SEE_OTHER,
+            ]);
         }
         return $this->render('trick/trick.html.twig', [
             'trick' => $trick,
-            'comments'=>$commentRepository->findBy(['trick'=>$trick->getId()],['createDate'=>'DESC']),
+            'comments' => $commentRepository->findBy(
+                ['trick' => $trick->getId()],
+                ['createDate' => 'DESC']
+            ),
             'commentForm' => $commentForm->createView(),
         ]);
     }
 
-
     /**
-     * @Route("/{id}/edit", name="trick_edit", methods={"GET", "POST"})
+     * @Route("/edit-{id}", name="trick_edit", methods={"GET", "POST"})
      */
     public function edit(
         Request $request,
         Trick $trick,
+        FileUploaderHelper $fileUploaderHelper,
         EntityManagerInterface $entityManager
     ): Response {
-        $form = $this->createForm(TrickType::class, $trick);
-        $form->handleRequest($request);
+        $trickForm = $this->createForm(TrickType::class, $trick);
+        $trickForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($trickForm->isSubmitted() && $trickForm->isValid()) {
+            $videoFiles = $trickForm->get('videos')->getData();
+            $imageFiles = $trickForm->get('images')->getData();
+            $imageDirectory =
+                $this->getParameter('kernel.project_dir') .
+                '/public/img/image_tricks';
+            if ($trick->getImages() === null) {
+                $fileUploaderHelper->uploadImage(
+                    $imageDirectory,
+                    $imageFiles,
+                    $trick
+                );
+            } else {
+                $fileUploaderHelper->uploadEditedTrickImage(
+                    $imageDirectory,
+                    $imageFiles,
+                    $trick
+                );
+            }
+
+            if ($videoFiles) {
+                $fileUploaderHelper->uploadVideo($videoFiles, $trick);
+            }
+            $trick->setUpdateDate(new \Datetime());
+            $entityManager->persist($trick);
             $entityManager->flush();
+            $this->addFlash('success', 'Le trick a été créé avec modifé');
 
             return $this->redirectToRoute(
-                'trick_index',
-                [],
+                'trickPage',
+                ['slug' => $trick->getSlug(), 'id' => $trick->getId()],
                 Response::HTTP_SEE_OTHER
             );
         }
-
-        return $this->renderForm('trick/edit.html.twig', [
-            'trick' => $trick,
-            'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/editTrick/{id?}", name="editTrickPage")
-     */
-    public function editTrickPage($id): Response
-    {
+        $this->addFlash(
+            'notice',
+            ' Opps quelque chose ne va pas ! Vérifiez surtout si vous avez mis un lien youtube valide.'
+        );
         return $this->render('trick/editTrick.html.twig', [
-            'controller_name' => 'TrickController',
+            'trickForm' => $trickForm->createView(),
+            'trick' => $trick,
         ]);
     }
 }
