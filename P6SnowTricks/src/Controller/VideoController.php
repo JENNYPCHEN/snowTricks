@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/video")
@@ -15,23 +16,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class VideoController extends AbstractController
 {
      /**
-     * @Route("/delete/{id}", name="video_delete", methods={"POST"})
+     * @Route("/delete/{id}", name="video_delete", methods={"DELETE"})
      */
     public function delete(
         Request $request,
         Video $video,
         EntityManagerInterface $entityManager
     ): Response {
+        $data = json_decode($request->getContent(), true);
         if (
             $this->isCsrfTokenValid(
                 'delete' . $video->getId(),
-                $request->request->get('_token')
+                $data['_token']
             )
         ) {
+            $data = json_decode($request->getContent(), true);
             $entityManager->remove($video);
             $entityManager->flush();
+            return new JsonResponse(['success' => 1]);
         }
-        $this->addFlash('success', 'Le video a été supprimé avec succès');
-        return $this->redirectToRoute('homePage', [], Response::HTTP_SEE_OTHER);
-    }
+        return new JsonResponse(['error' => 'invalid_token'], 400);    }
 }

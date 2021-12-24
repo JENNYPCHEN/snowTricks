@@ -26,8 +26,8 @@
 <!--class collapse when small screen-->
 <div id="editGallery" class="collapse d-md-block d-lg-block d-xl-block">
   <div class="row justify-content-center">
-    {% if trick.images %}
-     {% for image in trick.images %}
+    {% if trickForm.vars.data.images|default %}
+     {% for image in trickForm.vars.data.images %}
     <div class="col-lg-3 col-xs-3 mb-4 mb-lg-0 " id="deleteImageDisplay">
       <div class="card mb-2 ">
         <img
@@ -45,10 +45,7 @@
     <div class="col-lg-3 col-xs-3 mb-4 mb-lg-0">
       <div class="card mb-2">
     <iframe class='embed-responsive-item'  src="https://www.youtube.com/embed/{{video.path|striptags}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-        <div class="card-text d-flex justify-content-end">
-              {% include 'video/_delete_form.html.twig' %}
-        </div>
+   {% include 'video/_delete_form.html.twig' %}
       </div>
     </div>
      {% endfor %}
