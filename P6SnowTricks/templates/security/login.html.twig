@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Se connecter{% endblock %}
+
+{% block body %}
+  <main  class="text-center " style="background-image: url('{{asset('img/background.jpg')}}');background-position: center center;
+    ">
+  <section id="login" class="form-signin p-4 d-flex row justify-content-center bgcolor">
+      <form class="col-md-4">
+        <img class="mb-4" src="{{asset('img/icon.png')}}" alt="icon" width="57" height="57">
+        
+
+<form method="post" >
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 fw-bold title">Connectez-vous</h1>
+
+    <div class="form-floating">
+    <label for="inputUsername">Nom d'utilisateur *</label>
+    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control my-3 " autocomplete="username" required autofocus>
+    </div>
+    <div class="form-floating">
+    <label for="inputPassword">Mot de passe *</label>
+    <input type="password" name="password" id="inputPassword" class="form-control my-3" autocomplete="current-password" required>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    </div>
+
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+
+    <button class="w-100 btn btn-lg btn-primary mb-3" type="submit"> Se connecter </button>
+            <div class="mb-1"><a href="#!">Mot de passe oublié ?</a></div>
+        <div class="mb-1"><a href="#!">Nouvel utilisateur ?</a></div>
+        <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+</form>
+  </section>
+  </main>
+{% endblock %}
