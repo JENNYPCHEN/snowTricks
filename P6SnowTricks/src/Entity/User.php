@@ -3,78 +3,34 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"}), @ORM\UniqueConstraint(name="username_UNIQUE", columns={"username"})})
-
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="json")
-     */
-   // private $roles = [];
-
-        /**
-     * @var string
-     *
-     * @ORM\Column(name="username", type="string", length=45, nullable=false, unique=true)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
     private $username;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=45, nullable=false, unique=true)
+     * @ORM\Column(type="json")
      */
-    private $email;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="create_date", type="datetime", nullable=false)
-     */
-    private $createDate;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="token", type="string", length=255, nullable=true)
-     */
-    private $token;
-
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="token_timestamp", type="datetime", nullable=true)
-     */
-    private $tokenTimestamp;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="activated", type="boolean", nullable=false)
-     */
-    private $activated = '0';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=255, nullable=false)
-     */
-    private $image;
-
+    private $roles = [];
 
     /**
      * @var string The hashed password
@@ -82,26 +38,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
-    public function getId(): ?string
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=255, nullable=false)
+     */
+    private $image;
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+	 * @Assert\NotBlank
+	 * @Assert\Email(message = "L'email '{{ value }}' n'est pas un email valide.")
+     */
+	private $email;
+
+     /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user")
+     */
+    private $comments;
+   /**
+     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="user")
+     */
+    private $tricks;
+
+    /**
+     *  @var \DateTime|null
+     * @ORM\Column(name="create_date", type="datetime",nullable=true)
+     */
+    private $createDate;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+        $this->tricks = new ArrayCollection();
+    }
+    public function getId(): ?int
     {
         return $this->id;
     }
-
-    public function setId(string $id): self
+    public function getEmail(): ?string
     {
-        $this->id = $id;
-
-        return $this;
+        return $this->email;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUserIdentifier(): string
+    public function setEmail(string $email): self
     {
-        return (string) $this->username;
+        $this->email = $email;
+
+        return $this;
     }
 
     /**
@@ -117,6 +101,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->username = $username;
 
         return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->username;
     }
 
     /**
@@ -173,14 +179,62 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getEmail(): ?string
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
     {
-        return $this->email;
+        return $this->comments;
     }
 
-    public function setEmail(string $email): self
+    public function addComment(Comment $comment): self
     {
-        $this->email = $email;
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Trick[]
+     */
+    public function getTricks(): Collection
+    {
+        return $this->tricks;
+    }
+
+    public function addTrick(Trick $trick): self
+    {
+        if (!$this->tricks->contains($trick)) {
+            $this->tricks[] = $trick;
+            $trick->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrick(Trick $trick): self
+    {
+        if ($this->tricks->removeElement($trick)) {
+            // set the owning side to null (unless already changed)
+            if ($trick->getUser() === $this) {
+                $trick->setUser(null);
+            }
+        }
 
         return $this;
     }
@@ -196,57 +250,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    public function getToken(): ?string
-    {
-        return $this->token;
-    }
 
-    public function setToken(?string $token): self
-    {
-        $this->token = $token;
-
-        return $this;
-    }
-
-    public function getTokenTimestamp(): ?\DateTimeInterface
-    {
-        return $this->tokenTimestamp;
-    }
-
-    public function setTokenTimestamp(?\DateTimeInterface $tokenTimestamp): self
-    {
-        $this->tokenTimestamp = $tokenTimestamp;
-
-        return $this;
-    }
-    public function getActivated(): ?bool
-    {
-        return $this->activated;
-    }
-
-    public function setActivated(bool $activated): self
-    {
-        $this->activated = $activated;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-    public function __toString() {
-        return $this->username;
-        return $this->id;
-        return $this->email;
-        return $this->image;
-    }
-
+   
 }
