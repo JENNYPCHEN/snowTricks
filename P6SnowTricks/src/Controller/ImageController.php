@@ -11,34 +11,38 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/image")
  */
 class ImageController extends AbstractController
 {
-  /**
-     * @Route("/delete/{id}", name="image_delete", methods={"POST"})
+    /**
+     * @Route("/delete/{id}", name="image_delete", methods={"DELETE"})
      */
     public function delete(
         Request $request,
         Image $image,
         EntityManagerInterface $entityManager
     ): Response {
+        $data = json_decode($request->getContent(), true);
         if (
             $this->isCsrfTokenValid(
                 'delete' . $image->getId(),
-                $request->request->get('_token')
+                $data['_token']
             )
         ) {
+            $path = $image->getPath();
+			unlink($this->getParameter('kernel.project_dir') .
+            '/public/img/image_tricks' . '/' . $path);
             $entityManager->remove($image);
             $entityManager->flush();
-            $this->addFlash('success', 'Le image a été supprimé avec succès');
-            return $this->redirectToRoute('homePage', [], Response::HTTP_SEE_OTHER);
+            return new JsonResponse(['success' => 1]);
         }
-       
+        return new JsonResponse(['error' => 'invalid_token'], 400);
     }
-    
+
     /**
      * @Route("/", name="image_index", methods={"GET"})
      */
@@ -52,8 +56,10 @@ class ImageController extends AbstractController
     /**
      * @Route("/new", name="image_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
         $image = new Image();
         $form = $this->createForm(ImageType::class, $image);
         $form->handleRequest($request);
@@ -62,7 +68,11 @@ class ImageController extends AbstractController
             $entityManager->persist($image);
             $entityManager->flush();
 
-            return $this->redirectToRoute('image_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                'image_index',
+                [],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->renderForm('image/new.html.twig', [
@@ -84,15 +94,22 @@ class ImageController extends AbstractController
     /**
      * @Route("/{id}/edit", name="image_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Image $image, EntityManagerInterface $entityManager): Response
-    {
+    public function edit(
+        Request $request,
+        Image $image,
+        EntityManagerInterface $entityManager
+    ): Response {
         $form = $this->createForm(ImageType::class, $image);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('image_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                'image_index',
+                [],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->renderForm('image/edit.html.twig', [
@@ -100,6 +117,4 @@ class ImageController extends AbstractController
             'form' => $form,
         ]);
     }
-
-   
 }

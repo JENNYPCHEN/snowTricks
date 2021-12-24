@@ -83,14 +83,21 @@
       <!--tricks-->
       <section>
       <div id="tricks"class="container">
-        <div class=" row pb-1 d-flex justify-content-center">
+      
         {%for trick in tricks%}
-          <div class="col-md-2">
+        {% if loop.first or loop.index0 is divisible by(5) %}
+        <div class=" row pb-1 d-flex justify-content-center" >
+        {% endif %}
+          <div class="col-md-2 display" style="display:none" >
             <div class="card mb-1">
               <a href="{{ path('trickPage', {'id': trick.id,'slug': trick.slug})}}">
+                {% if trick.images is empty %}
+                <img class="card-img-top" src="{{asset('img/image_tricks/default.jpg')}}">
+                 {% else %}
                {% for image in trick.images |slice(0,1)%}
                <img class="card-img-top" src="{{asset('img/image_tricks/'~image.path)}}">
                {% endfor %}
+               {% endif %}
               <div class="card-body d-flex justify-content-between"> 
                 <div><h5 class="card-title"> {{trick.name|striptags}}</h5></div>
               </a>
@@ -100,12 +107,16 @@
                 </div>
               </div>
             </div>
-            </div>
+            </div> 
+            {% if loop.last or loop.index is divisible by(5) %}
+        </div>
+        {% endif %}    
         {% endfor %}
-    
+        
+  
       <!--end-->
        <!--load more-->
-       <div id="loadMore" class="d-flex justify-content-center my-3"><button href=""class="btn btn-dark btn-sm">Load more</button></div>
+       <a id="loadMore" href="#"class="d-flex justify-content-center my-3"><button class="btn btn-dark btn-sm">Load more</button></a>
       </div>
     </section>
     <!--scroll up-->

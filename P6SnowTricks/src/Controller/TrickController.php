@@ -63,13 +63,11 @@ class TrickController extends AbstractController
             $imageDirectory =
                 $this->getParameter('kernel.project_dir') .
                 '/public/img/image_tricks';
-
             $fileUploaderHelper->uploadImage(
                 $imageDirectory,
                 $imageFiles,
                 $trick
             );
-
             if ($videoFiles) {
                 $fileUploaderHelper->uploadVideo($videoFiles, $trick);
             }
@@ -84,10 +82,7 @@ class TrickController extends AbstractController
                 Response::HTTP_SEE_OTHER
             );
         }
-        $this->addFlash(
-            'notice',
-            ' Opps quelque chose ne va pas ! Vérifiez surtout si vous avez mis un lien youtube valide.'
-        );
+    
         return $this->render('trick/createTrick.html.twig', [
             'trickForm' => $trickForm->createView(),
         ]);
@@ -156,7 +151,7 @@ class TrickController extends AbstractController
                     $imageFiles,
                     $trick
                 );
-           }
+            }
 
             if ($videoFiles) {
                 $fileUploaderHelper->uploadVideo($videoFiles, $trick);
@@ -172,10 +167,6 @@ class TrickController extends AbstractController
                 Response::HTTP_SEE_OTHER
             );
         }
-        $this->addFlash(
-            'notice',
-            ' Opps quelque chose ne va pas ! Vérifiez surtout si vous avez mis un lien youtube valide.'
-        );
         return $this->render('trick/editTrick.html.twig', [
             'trickForm' => $trickForm->createView(),
             'trick' => $trick,
