@@ -4,10 +4,22 @@
 
 {% block body %}
 
+{% for message in app.flashes('success') %}
+    <div class="flash-notice alert alert-success alert-dismissible fade show my-0 py-2" >
+      <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert"></button>
+        {{ message }}
+    </div>
+{% endfor %}
+
    <main class='container' id="trick">
    <section >
     <!--main image-->
-    <div class="p-5 mb-5 text-center mainImage " style="background-image: url(' {{asset('img/image_tricks/'~ trick.images.first.path)}}');">
+    {% if trick.images is empty %}
+           <div class="p-5 mb-5 text-center mainImage " style="background-image: url(' {{asset('img/image_tricks/default.jpg')}}');">
+     {% else %}
+         <div class="p-5 mb-5 text-center mainImage " style="background-image: url(' {{asset('img/image_tricks/'~ trick.images.first.path)}}');">
+
+  {% endif %}
       <h1 class="mt-5 mb-4 titleTrick">{{trick.name|title|striptags}}</h1>
     </div>
     <div class="text-end"> 
@@ -65,11 +77,16 @@
   <hr class="dotted">
 <!--comment-->
 <section> 
-
+<div class="container ">
 {% if comments %}
 {% for comment in comments%}
-<div class="row d-flex justify-content-center">
-  <div class="col-md-1 col-2"><img src="{{asset('img/image_profiles/'~comment.user.image)}}" class="avatar text-right"></div>
+<div class="displayComments"style="display:none">
+
+<div class=" row d-flex justify-content-center "  >
+
+  <div class="col-md-1 col-2">
+  <img src="{{asset('img/image_profiles/'~comment.user.image)}}" class="avatar text-right">
+  </div>
   <div class="col-md-5 col-8">
   <div class=" bg-light px-2 p-1" style="border-radius: 10px;">
     <h6>{{comment.user.username}}</h6>
@@ -78,13 +95,15 @@
   <p class="mb-2 px-2 mb-1"style="font-size: 13px;">{{comment.createDate|date('Y-m-d H:i:s')}}</p>
   </div>
   </div>
+  
+  </div>
   {% endfor %}
   {% endif %}
-  
-  
-</section>
+       <a id="loadMoreComments" href="#"class="d-flex justify-content-center my-3"><button class="btn btn-dark btn-sm">Load more</button></a>
+  </div>
 <!--pagination-->
-<div id="loadMore" class="d-flex justify-content-center my-3"><a href=""class="btn btn-dark btn-sm">Load more</a></div>
+</section>
+
 </main>
 {% endblock %}
 {% block js %}/{% endblock %}

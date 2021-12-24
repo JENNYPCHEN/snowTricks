@@ -11,6 +11,12 @@
     )
     }}');background-position: bottom center;
   ">
+  {% for message in app.flashes('notice') %}
+    <div class="flash-notice alert alert-warning alert-dismissible fade show my-0 py-2" >
+      <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert"></button>
+        {{ message }}
+    </div>
+{% endfor %}
     <h2 class="text-center py-3 my-3 title fw-bold" style="color:#004f80">
       Creation de figure de snowboard
     </h2>
