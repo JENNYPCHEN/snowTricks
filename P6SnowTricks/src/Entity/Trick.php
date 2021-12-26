@@ -73,7 +73,7 @@ class Trick
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="User", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="User", fetch="EAGER", inversedBy="tricks")
      * @ORM\JoinColumns({
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })

@@ -39,8 +39,13 @@
           <ul class="list-inline small mb-0 d-none d-lg-block menu">
             <li class="list-inline-item "><a href="{{path('homePage')}}">Accueil</a></li>
             <li class="list-inline-item "><a href="{{path('homePage')}}#tricks" >Tricks</a></li>
-            <li class="list-inline-item "><a href="{{path('userLoginPage')}}">Se connecter</a></li>
-            <li class="list-inline-item "><a href="{{path('userSignupPage')}}">Inscription</a></li>
+             {% if is_granted('ROLE_USER') %}
+            <li class="list-inline-item "><a href="{{path('createTrickPage')}}">Ajouter trick</a></li>
+            <li class="list-inline-item "><a href="{{path('app_logout')}}">déconnexion</a></li>
+                  {% else %}
+            <li class="list-inline-item "><a href="{{path('app_login')}}">Se connecter</a></li>
+            <li class="list-inline-item "><a href="{{path('app_register')}}">Inscription</a></li>
+      {% endif %}
           </ul>
         </div>
     </nav>
@@ -51,8 +56,13 @@
           <li class="list-inline-item "><a href="{{path('homePage')}}" title="Accueil"><i class="fas fa-lg fa-home"></i></a></li>
           <li class="list-inline-item "><a href="{{path('homePage')}}#tricks"title="Tricks"><i class="fas fa-lg fa-skiing"></i></a></li>
           <li class="list-inline-item inline-block align-top"><a href="{{path('homePage')}}" > <img src="{{asset('img/icon.png')}}" width="30" alt="icon"></a></li>
-          <li class="list-inline-item "><a href="{{path('userLoginPage')}}"title="Se connecter"><i class="fas fa-lg fa-sign-in-alt"></i></a></li>
-          <li class="list-inline-item "><a href="{{path('userSignupPage')}}"title="Inscription"><i class="fas fa-lg fa-user-plus"></i></li></a>
+          {% if is_granted('ROLE_USER') %}
+          <li class="list-inline-item "><a href="{{path('createTrickPage')}}"title="Ajouter trick"><i class="fas fa-lg fa-plus"></i></a></li>
+          <li class="list-inline-item "><a href="{{path('app_logout')}}"title="déconnexion"><i class="fas fa-lg fa-sign-out-alt"></i></li></a>
+          {% else %}
+          <li class="list-inline-item "><a href="{{path('app_login')}}"title="Se connecter"><i class="fas fa-lg fa-sign-in-alt"></i></a></li>
+          <li class="list-inline-item "><a href="{{path('app_register')}}"title="Inscription"><i class="fas fa-lg fa-user-plus"></i></li></a>
+          {% endif %}
         </ul>
   </nav>
 </div>

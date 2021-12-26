@@ -32,7 +32,7 @@ class Video
     /**
      * @var \Trick
      *
-     * @ORM\ManyToOne(targetEntity="Trick")
+     * @ORM\ManyToOne(targetEntity="Trick", inversedBy="videos")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      * })

@@ -32,9 +32,9 @@ class Image
     /**
      * @var \Trick
      *
-     * @ORM\ManyToOne(targetEntity="Trick")
+     * @ORM\ManyToOne(targetEntity="Trick",inversedBy="images")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      * })
      */
     private $trick;

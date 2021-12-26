@@ -40,7 +40,7 @@ class Comment
     /**
      * @var \Trick
      *
-     * @ORM\ManyToOne(targetEntity="Trick")
+     * @ORM\ManyToOne(targetEntity="Trick", inversedBy="comments")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      * })
@@ -50,7 +50,7 @@ class Comment
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User",inversedBy="comments")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
