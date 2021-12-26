@@ -3,34 +3,39 @@
 {% block title %}Se connecter{% endblock %}
 
 {% block body %}
-  <main  class="text-center " style="background-image: url('{{asset('img/background.jpg')}}');background-position: center center;
-    ">
-  <section id="login" class="form-signin p-4 d-flex row justify-content-center bgcolor">
-      <form class="col-md-4">
-        <img class="mb-4" src="{{asset('img/icon.png')}}" alt="icon" width="57" height="57">
-        
+  <main  class="text-center " style="background-image: url('{{asset('img/background.jpg')}}');background-position: center center;">
+<section id="login" class="form-signin p-4 d-flex row justify-content-center bgcolor">
 
-<form method="post" >
+
+<form method="post" class ="col-md-4">
+{% for message in app.flashes('success') %}
+    <div class="flash-notice alert alert-success  alert-dismissible fade show my-0 py-2" >
+      <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert"></button>
+        {{ message }}
+    </div>
+{% endfor %}
+
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
+            <img class="mb-4" src="{{asset('img/icon.png')}}" alt="icon" width="57" height="57">
 
-    <h1 class="h3 mb-3 fw-bold title">Connectez-vous</h1>
 
-    <div class="form-floating">
+    <h1 class="h3 mb-4 fw-bold title">Connectez-vous</h1>
+    <div class="form-floating my-3">
+    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
     <label for="inputUsername">Nom d'utilisateur *</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control my-3 " autocomplete="username" required autofocus>
-    </div>
-    <div class="form-floating">
-    <label for="inputPassword">Mot de passe *</label>
-    <input type="password" name="password" id="inputPassword" class="form-control my-3" autocomplete="current-password" required>
+    </div>   
+     <div class="form-floating my-3">
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+   <label for="inputPassword">Mot de passe *</label>
     </div>
 
     {#
@@ -44,11 +49,11 @@
         </div>
     #}
 
-    <button class="w-100 btn btn-lg btn-primary mb-3" type="submit"> Se connecter </button>
-            <div class="mb-1"><a href="#!">Mot de passe oublié ?</a></div>
-        <div class="mb-1"><a href="#!">Nouvel utilisateur ?</a></div>
-        <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+    <button class="btn btn-lg btn-primary mb-3" type="submit"> Se connecter </button>
 </form>
-  </section>
-  </main>
+            <div class="mb-1"><a href="#!">Mot de passe oublié ?</a></div>
+        <div class="mb-1"><a href="{{path('app_register')}}">Nouvel utilisateur ?</a></div>
+        <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+</main>
+</section>
 {% endblock %}

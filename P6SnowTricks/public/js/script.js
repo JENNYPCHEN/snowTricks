@@ -88,11 +88,12 @@ jQuery(document).ready(function () {
 
 //trick loadMore 
 $(document).ready(function(){
+  
   $(".display").slice(0, 10).show();
   $("#loadMore").on("click", function(e){
     e.preventDefault();
     $(".display:hidden").slice(0, 5).slideDown();
-    if($(".display:hidden").length == 0) {
+    if($(".display:hidden").length === 0) {
       $("#loadMore").text("").addClass("noContent");
     }
   }); 
@@ -103,7 +104,7 @@ $(document).ready(function(){
   $("#loadMoreComments").on("click", function(e){
     e.preventDefault();
     $(".displayComments:hidden").slice(0, 5).slideDown();
-    if($(".displayComments:hidden").length == 0) {
+    if($(".displayComments:hidden").length === 0) {
       $("#loadMoreComments").text("").addClass("noContent");
     }
   });
