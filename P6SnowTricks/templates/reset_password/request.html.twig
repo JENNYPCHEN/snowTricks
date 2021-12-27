@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réinitialisez votre mot de passe{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    <main  class="text-center " style="height:100%; background-image: url('{{asset('img/background.jpg')}});background-position: bottom center;">
+    <section id="login" class="form-signin p-4 d-flex row justify-content-center bgcolor">
+
+    {{ form_start(requestForm ,{'attr':{'class':'col-md-4'}}) }}
+     <img class="mb-4" src="{{asset('img/icon.png')}}" alt="icon" width="57" height="57">
+        <h1 class="h3 mb-3 fw-bold title">Réinitialisez votre mot de passe</h1>
+        <p>Veuillez saisir votre nom d'utilisateur ci-dessous. Nous vous enverrons les instructions par email pour créer un nouveau mot de passe.</p>
+<div class="form-floating">
+        {{ form_widget(requestForm.username ,{'attr':{'class':'mb-3'}}) }}
+        {{ form_errors(requestForm.username)}}
+        <label for="floatingInput">Nom d'utilisateur *</label>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary mb-3">Continuer</button>
+    {{ form_end(requestForm) }}
+     </section>
+  </main>
+{% endblock %}
