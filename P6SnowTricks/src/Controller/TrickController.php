@@ -33,6 +33,7 @@ class TrickController extends AbstractController
         Trick $trick,
         EntityManagerInterface $entityManager
     ): Response {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         if (
             $this->isCsrfTokenValid(
                 'delete' . $trick->getId(),
@@ -54,6 +55,7 @@ class TrickController extends AbstractController
         FileUploaderHelper $fileUploaderHelper,
         EntityManagerInterface $entityManager
     ): Response {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $trick = new Trick();
         $trickForm = $this->createForm(TrickType::class, $trick);
         $trickForm->handleRequest($request);
@@ -72,6 +74,7 @@ class TrickController extends AbstractController
                 $fileUploaderHelper->uploadVideo($videoFiles, $trick);
             }
             $trick->setCreateDate(new \Datetime());
+            $trick->setUser($this->getUser());
             $entityManager->persist($trick);
             $entityManager->flush();
             $this->addFlash('success', 'Le trick a été créé avec succès');
@@ -131,6 +134,7 @@ class TrickController extends AbstractController
         FileUploaderHelper $fileUploaderHelper,
         EntityManagerInterface $entityManager
     ): Response {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $trickForm = $this->createForm(TrickType::class, $trick);
         $trickForm->handleRequest($request);
 

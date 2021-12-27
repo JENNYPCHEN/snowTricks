@@ -23,6 +23,7 @@ class VideoController extends AbstractController
         Video $video,
         EntityManagerInterface $entityManager
     ): Response {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $data = json_decode($request->getContent(), true);
         if (
             $this->isCsrfTokenValid(
