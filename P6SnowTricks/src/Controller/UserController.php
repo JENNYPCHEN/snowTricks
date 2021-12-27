@@ -8,16 +8,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-   
-        /**
-     * @Route("/user/signup", name="userSignupPage")
-     */
-    public function signupPage(): Response
-    {
-        return $this->render('user/signup.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
 
             /**
      * @Route("/user/forgetPassword", name="forgetPasswordPage")
