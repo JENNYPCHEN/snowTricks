@@ -52,4 +52,5 @@ class FileUploaderHelper
             $trick->addImage($img);
         }
     }
+    
 }
