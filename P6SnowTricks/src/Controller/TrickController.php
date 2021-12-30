@@ -85,7 +85,7 @@ class TrickController extends AbstractController
                 Response::HTTP_SEE_OTHER
             );
         }
-    
+
         return $this->render('trick/createTrick.html.twig', [
             'trickForm' => $trickForm->createView(),
         ]);
@@ -115,11 +115,13 @@ class TrickController extends AbstractController
                 Response::HTTP_SEE_OTHER,
             ]);
         }
+        $totalComments = $commentRepository->countNumberComments($trick);
         return $this->render('trick/trick.html.twig', [
             'trick' => $trick,
+            'totalComments' => $totalComments,
             'comments' => $commentRepository->findBy(
                 ['trick' => $trick->getId()],
-                ['createDate' => 'DESC']
+                ['createDate' => 'DESC'],5
             ),
             'commentForm' => $commentForm->createView(),
         ]);

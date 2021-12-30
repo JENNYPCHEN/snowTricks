@@ -10,12 +10,11 @@
         {{ message }}
     </div>
 {% endfor %}
-
-   <main class='container' id="trick">
-   <section >
-    <!--main image-->
-    {% if trick.images is empty %}
-           <div class="p-5 mb-5 text-center mainImage " style="background-image: url(' {{asset('img/image_tricks/default.jpg')}}');">
+<main class='container' id="trick">
+<section >
+<!--main image-->
+{% if trick.images is empty %}
+<div class="p-5 mb-5 text-center mainImage " style="background-image: url(' {{asset('img/image_tricks/default.jpg')}}');">
      {% else %}
          <div class="p-5 mb-5 text-center mainImage " style="background-image: url(' {{asset('img/image_tricks/'~ trick.images.first.path)}}');">
 
@@ -88,10 +87,8 @@
 <div class="container ">
 {% if comments %}
 {% for comment in comments%}
-<div class="displayComments"style="display:none">
-
+<div class="displayComments">
 <div class=" row d-flex justify-content-center "  >
-
   <div class="col-md-1 col-2">
   <img src="{{asset('img/image_profiles/'~comment.user.image)}}" class="avatar text-right">
   </div>
@@ -104,14 +101,27 @@
   </div>
   </div>
   
-  </div>
   {% endfor %}
-  {% endif %}
-       <a id="loadMoreComments" href="#"class="d-flex justify-content-center my-3"><button class="btn btn-dark btn-sm">Load more</button></a>
+<div id="loadCommentsContainer">
+</div>
+  {% if totalComments >5 %}
+  <div class=" d-flex justify-content-center my-4">
+   <a id="a" data-load data-trick="{{trick.id}}" data-total="{{totalComments|number_format }}" data-offset="0">
+ <button class="btn btn-dark btn-sm " id="js-loadmore">Load more</button></a>
+   </div>
+  
+  
+ 
+
+   {% endif %}
+   {% endif %}
+   
   </div>
-<!--pagination-->
+  </div>
 </section>
 
 </main>
 {% endblock %}
-{% block js %}/{% endblock %}
+{% block js %}
+<script type="text/javascript" src={{asset('js/loadMoreComments.js')}}></script>
+{% endblock %}

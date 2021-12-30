@@ -80,14 +80,13 @@
   
   </section>
       <!--tricks-->
-      <section>
-      <div id="tricks"class="container">
-      
+      <section class="container">
+      <div id="tricks">
         {%for trick in tricks%}
         {% if loop.first or loop.index0 is divisible by(5) %}
         <div class=" row pb-1 d-flex justify-content-center" >
         {% endif %}
-          <div class="col-md-2 display" style="display:none" >
+          <div class="col-md-2 display" >
             <div class="card mb-1">
               <a href="{{ path('trickPage', {'id': trick.id,'slug': trick.slug})}}">
                 {% if trick.images is empty %}

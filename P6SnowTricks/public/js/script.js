@@ -1,3 +1,12 @@
+
+
+$(document).ready(function () {
+    $('#demo').click(function () {
+        alert("Button is Clicked");
+    });
+});
+
+
 //profile Image
 function triggerClick(e) {
   document.querySelector("#profileImage").click();
@@ -87,7 +96,7 @@ jQuery(document).ready(function () {
 });
 
 //trick loadMore 
-$(document).ready(function(){
+/*$(document).ready(function(){
   
   $(".display").slice(0, 10).show();
   $("#loadMore").on("click", function(e){
@@ -108,8 +117,8 @@ $(document).ready(function(){
       $("#loadMoreComments").text("").addClass("noContent");
     }
   });
-})
-// ajax delete image/video
+})*/
+//ajax delete image/video
 window.onload = () => {
 	let links = document.querySelectorAll("[data-delete]");
 	for (link of links) {
@@ -136,3 +145,5 @@ window.onload = () => {
 		});
 	}
 };
+
+//ajax for load more comments
