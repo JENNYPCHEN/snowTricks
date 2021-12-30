@@ -33,7 +33,7 @@ class TrickRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getResult();
         } else 
-       return $this->findBy([], ['createDate' => 'DESC']);
+       return $this->findBy([], ['createDate' => 'DESC'],10);
     }
 
         /*

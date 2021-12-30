@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Comment;
+use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -34,17 +35,19 @@ class CommentRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Comment
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+    
+    /**
+      * @return Comment[] Returns an array of Comment objects
+      */
+    
+      public function countNumberComments(Trick $trick)
+      {
+          return $this->createQueryBuilder('c')
+              ->andWhere('c.trick = :trick')
+              ->setParameter('trick', $trick)
+              ->select('COUNT(c.id) as totalComments')
+              ->getQuery()
+              ->getSingleScalarResult();
+      }
+    
 }
