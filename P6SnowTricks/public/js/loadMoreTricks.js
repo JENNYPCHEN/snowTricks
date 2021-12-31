@@ -2,6 +2,7 @@
 jQuery(document).ready(function(e) {
     $('#js-loadmore-trick').click(function(e){
       e.preventDefault();
+      $("#scollButton").show();
       const a = document.querySelector('#a');
       var totalTricks =a.dataset.total;
       var search=a.dataset.search;
