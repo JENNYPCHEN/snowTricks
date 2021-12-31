@@ -123,8 +123,11 @@
  {% endif %}
       </section>
     
+    <!-- <section class ="fixed-bottom d-flex justify-content-end mx-3 my-5 scroll" >
+      <a id="scollButton"href="#" ><i class="fas fa-caret-up fa-3x" onclick="topFunction()"></i></a>
+    </section>-->
     <section class ="fixed-bottom d-flex justify-content-end mx-3 my-5 scroll" >
-      <a style="display:none" id="scollButton"href="#" ><i class="fas fa-caret-up fa-3x" id="scrollUp" onclick="topFunction()"></i></a>
+      <a style="display:none" id="scollButton" href="#tricks" ><i class="fas fa-caret-up fa-3x" onclick="topFunction()"></i></a>
     </section>
 
   </main>
@@ -132,7 +135,8 @@
 
 {% endblock %}
 {% block js %}
-<script type="text/javascript" src={{asset('js/loadMoreTricks.js')}}></script>
 <script type="text/javascript" src={{asset('js/script.js')}}></script>
+<script type="text/javascript" src={{asset('js/loadMoreTricks.js')}}></script>
+
 
 {% endblock %}
