@@ -5,22 +5,24 @@ jQuery(document).ready(function(e) {
       const a = document.querySelector('#a');
       var totalComments =a.dataset.total;
       var trickId=a.dataset.trick;
+      var row=parseInt(a.dataset.offset);
       var rowperpage = 5;
-      var row=0;
       row+=rowperpage;
+
       if(row <= totalComments){
         $.ajax({
-          url: '/load/more/comments/'+ trickId,
+          url: '/load/more/comments/'+ trickId +'/'+row,
           type: 'GET',
-          data: {row:row},
           success: function(response){
             var rowno = row + rowperpage;
             if(rowno > totalComments){
               $('#js-loadmore').hide();
             }else{
               $('#js-loadmore').text("Load more");
+              $('#a').data('offset', row); 
+              $('#a').attr('data-offset',row); 
             }
-            $("#loadCommentsContainer").html("");
+            
             let comments = response;
             for (var i = 0; i < comments.length; i++) {
           

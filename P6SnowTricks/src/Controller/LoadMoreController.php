@@ -12,38 +12,65 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 
-
-
 class LoadMoreController extends AbstractController
 {
     /**
-     * @Route("/load/more/Tricks", name="load_more")
+     * @Route("/load/more/tricks/{row}", name="load_more_tricks",methods={"GET", "POST"})
      */
-    public function loadmoreTricks(SerializerInterface $serializer,TrickRepository $trickRepository, Request $request): Response
-    {
-        $offset=15;
-        $tricks=$trickRepository->findBy([], ['createDate' => 'DESC'],10, $offset);
-        return new JsonResponse($serializer->serialize($tricks, 'json'));    
-    }
-        /**
-     * @Route("/load/more/comments/{id}/", name="load_more_comments")
-     */
-    public function loadmoreComments(CommentRepository $commentRepository,Trick $trick,Request $request): Response
-    {
-       $offset=$request->get('row');
-    
-    
-        $comments=$commentRepository->findBy(['trick' => $trick],['createDate' => 'DESC'],5, $offset);
-        foreach ($comments as $comment){
-            $data[]=[
-                'message'=>$comment->getMessage(),
-                'createDate'=>$comment->getCreateDate(),
-                'userName'=>$comment->getUser()->getUserName(),
-                'userImage'=>$comment->getUser()->getImage(),
+    public function loadmoreTricks(
+        SerializerInterface $serializer,
+        TrickRepository $trickRepository,
+        Request $request
+    ): Response {
+        
+        $offset = $request->get('row');
+        $limit=5;
+        $search=$request->query->get('search');
+        $tricks = $trickRepository->findBySearch($search,$offset,$limit);
+
+        foreach ($tricks as $trick) {
+            $images=$trick->getImages();
+            $i=0;
+            $imagepath="default.jpg";
+            foreach ($images as $image){
+                if($i==0){
+                    $imagepath=$image->getPath();
+                }
+                $i++;
+            }
+            $data[] = [
+                'id' => $trick->getId(),
+                'name' => $trick->getName(),
+                'image'=> $imagepath,
+                'slug'=>$trick->getSlug(),
             ];
         }
- 
-       return new JsonResponse($data);    
+        return new JsonResponse($data);
     }
+    /**
+     * @Route("/load/more/comments/{id}/{row}", name="load_more_comments")
+     */
+    public function loadmoreComments(
+        CommentRepository $commentRepository,
+        Trick $trick,
+        Request $request
+    ): Response {
+        $offset = $request->get('row');
 
+        $comments = $commentRepository->findBy(
+            ['trick' => $trick],
+            ['createDate' => 'DESC'],
+            5,
+            $offset
+        );
+        foreach ($comments as $comment) {
+            $data[] = [
+                'message' => $comment->getMessage(),
+                'createDate' => $comment->getCreateDate(),
+                'userName' => $comment->getUser()->getUserName(),
+                'userImage' => $comment->getUser()->getImage(),
+            ];
+        }
+        return new JsonResponse($data);
+    }
 }

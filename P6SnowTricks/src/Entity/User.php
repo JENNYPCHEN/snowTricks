@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Controller\UserController;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -276,6 +277,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->isVerified;
     }
-
-   
 }
