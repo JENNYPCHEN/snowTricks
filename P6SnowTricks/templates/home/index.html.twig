@@ -77,55 +77,62 @@
       </form>
  
     </div>
-  
+  </div>
   </section>
       <!--tricks-->
-      <section class="container">
-      <div id="tricks">
-        {%for trick in tricks%}
-        {% if loop.first or loop.index0 is divisible by(5) %}
-        <div class=" row pb-1 d-flex justify-content-center" >
-        {% endif %}
-          <div class="col-md-2 display" >
-            <div class="card mb-1">
-              <a href="{{ path('trickPage', {'id': trick.id,'slug': trick.slug})}}">
-                {% if trick.images is empty %}
+
+      <section class='m-3'>
+      <div id="tricks" class="container">
+       <div class="row row-cols-5 pb-1 d-flex justify-content-center" >
+       {% for trick in tricks %}
+        <div class="col display" >
+        <div class="card mb-1">
+        <a href="{{ path('trickPage', {'id': trick.id,'slug': trick.slug})}}">
+         {% if trick.images is empty %}
                 <img class="card-img-top" src="{{asset('img/image_tricks/default.jpg')}}">
                  {% else %}
                {% for image in trick.images |slice(0,1)%}
                <img class="card-img-top" src="{{asset('img/image_tricks/'~image.path)}}">
                {% endfor %}
                {% endif %}
-              <div class="card-body d-flex justify-content-between"> 
-                <div><h5 class="card-title"> {{trick.name|striptags}}</h5></div>
-              </a>
-               {% if is_granted('ROLE_USER') %}
+        </a>
+        <div class="card-body d-flex justify-content-between"> 
+
+        <div><a href="{{ path('trickPage', {'id': trick.id,'slug': trick.slug})}}">
+        <h5 class="card-title"> {{trick.name|striptags}}</h5></a></div>
+        {% if is_granted('ROLE_USER') %}
                 <div>
                   <a href="{{ path('trick_edit', {'id': trick.id})}}"><button class="btn btn-sm btn-outline-secondary m-1"><i class="fas fa-pencil-alt text-right fa-sm"></i></button></a>
                  {% include 'trick/_delete_form.html.twig' %}
                 </div>
                  {% endif %}
-              </div>
-            </div>
-            </div> 
-            {% if loop.last or loop.index is divisible by(5) %}
+
         </div>
-        {% endif %}    
-        {% endfor %}
-        
-  
-      <!--end-->
-       <!--load more-->
-       <a id="loadMore" href="#"class="d-flex justify-content-center my-3"><button class="btn btn-dark btn-sm">Load more</button></a>
+        </div>
+        </div>
+       {% endfor %}
+  </div>
+        <div id="loadTricksContainer" class="row row-cols-5 pb-1 d-flex justify-content-center"  ></div>
+
       </div>
-    </section>
+       {% if totalTricks >10 %}
+        <div class="justify-content-center">
+   <a id="a" data-load data-user="{{user}}"data-search="{{search}}" data-offset="0" data-total="{{totalTricks|number_format}}" class="d-flex justify-content-center my-3">
+ <button class="btn btn-dark btn-sm " id="js-loadmore-trick">Load more</button></a>
+ </div>
+ {% endif %}
+      </section>
     <!--scroll up-->
     <section class ="fixed-bottom d-flex justify-content-end mx-3 my-5 scroll" >
       <a href="#" ><i class="fas fa-caret-up fa-3x" id="scrollUp" onclick="topFunction()"></i></a>
     </section>
 
-
   </main>
  
+
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src={{asset('js/loadMoreTricks.js')}}></script>
+<script type="text/javascript" src={{asset('js/script.js')}}></script>
 
 {% endblock %}

@@ -17,8 +17,13 @@ class HomeController extends AbstractController
     public function indexPage(TrickRepository $trickRepository,Request $request): Response
     {
         $search=$request->query->get('q');
+        $user=$this->getUser()==null?false:true;
+        $totalTricks=$trickRepository->countNumberTricks();
         return $this->render('home/index.html.twig', [
+            'totalTricks'=>$totalTricks,
             'tricks' => $trickRepository->findBySearch($search),
+            'search'=>$search,
+            'user'=>$user,
         ]);
     }
 }

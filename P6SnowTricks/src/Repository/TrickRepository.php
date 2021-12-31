@@ -23,29 +23,28 @@ class TrickRepository extends ServiceEntityRepository
      * @return Trick[] Returns an array of Trick objects
      */
 
-    public function findBySearch($search = null)
+    public function findBySearch($search = null, $offset=0,$limit=10)
     {
-        if ($search!==null) {
+     
             return $this->createQueryBuilder('t')
                 ->andWhere('t.name like :val OR t.description like :val')
                 ->setParameter('val', '%' . $search . '%')
+                ->setFirstResult($offset)
+                ->setMaxResults($limit)
                 ->orderBy('t.createDate', 'DESC')
                 ->getQuery()
                 ->getResult();
-        } else 
-       return $this->findBy([], ['createDate' => 'DESC'],10);
-    }
-
-        /*
-    public function findOneBySomeField($value): ?Trick
+        } 
+    /**
+     * @return Trick[] Returns an array of Trick objects
+     */
+    public function countNumberTricks()
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select('COUNT(t.id) as totalTricks')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getSingleScalarResult();
     }
-    */
+  
     }
 
