@@ -4,7 +4,7 @@
 
 Hello,
 
-Thank you for your interest in my project. This project is to building a community website using the Symfony Framework.
+Thank you for your interest in my project. This project is to build a community website using the Symfony Framework.
 This is part of my Php/Symfony training from OpenClassrooms.
 
 Please let me know what you think about my project. All thoughts and suggestions are greatly appreciated.
@@ -51,4 +51,12 @@ php bin/console doctrine:database:create<br>
 php bin/console doctrine:migrations:migrate<br>
 You can import fixture by running the command below:<br>
 php bin/console doctrine:fixtures:load
+
+<h4>Wohooo!</h4>
+You can now sign up for an account and confirm your sign up with e mail confirmation, then you are ready to go! Or you can simply browse the website as a visiter!
+
+<br>
+Enjoy!<br>
+<br>
+ChingYi P.C
 
