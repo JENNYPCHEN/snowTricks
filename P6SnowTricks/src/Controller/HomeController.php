@@ -18,7 +18,7 @@ class HomeController extends AbstractController
     {
         $search=$request->query->get('q');
         $user=$this->getUser()==null?false:true;
-        $totalTricks=$trickRepository->countNumberTricks();
+        $totalTricks=$trickRepository->countNumberTricks($search);
         return $this->render('home/index.html.twig', [
             'totalTricks'=>$totalTricks,
             'tricks' => $trickRepository->findBySearch($search),

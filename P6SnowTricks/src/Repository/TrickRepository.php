@@ -38,10 +38,12 @@ class TrickRepository extends ServiceEntityRepository
     /**
      * @return Trick[] Returns an array of Trick objects
      */
-    public function countNumberTricks()
+    public function countNumberTricks($search = null)
     {
         return $this->createQueryBuilder('t')
             ->select('COUNT(t.id) as totalTricks')
+            ->andWhere('t.name like :val OR t.description like :val')
+            ->setParameter('val', '%' . $search . '%')
             ->getQuery()
             ->getSingleScalarResult();
     }

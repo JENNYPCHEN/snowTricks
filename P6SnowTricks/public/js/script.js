@@ -1,12 +1,5 @@
 
 
-$(document).ready(function () {
-    $('#demo').click(function () {
-        alert("Button is Clicked");
-    });
-});
-
-
 //profile Image
 function triggerClick(e) {
   document.querySelector("#profileImage").click();
@@ -35,7 +28,7 @@ window.onscroll = function () {
   scrollFunction();
 };
 function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+  if (document.body.scrollTop() > 2000 || document.documentElement.scrollTop() > 2000) {
     mybutton.style.display = "block";
   } else {
     mybutton.style.display = "none";

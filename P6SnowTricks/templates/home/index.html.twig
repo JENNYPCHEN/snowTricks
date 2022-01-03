@@ -117,14 +117,17 @@
       </div>
        {% if totalTricks >10 %}
         <div class="justify-content-center">
-   <a id="a" data-load data-user="{{user}}"data-search="{{search}}" data-offset="0" data-total="{{totalTricks|number_format}}" class="d-flex justify-content-center my-3">
+   <a id="a" data-load data-user="{{user}}"data-search="{{search}}" data-offset="5" data-total="{{totalTricks|number_format}}" class="d-flex justify-content-center my-3">
  <button class="btn btn-dark btn-sm " id="js-loadmore-trick">Load more</button></a>
  </div>
  {% endif %}
       </section>
-    <!--scroll up-->
+    
+    <!-- <section class ="fixed-bottom d-flex justify-content-end mx-3 my-5 scroll" >
+      <a id="scollButton"href="#" ><i class="fas fa-caret-up fa-3x" onclick="topFunction()"></i></a>
+    </section>-->
     <section class ="fixed-bottom d-flex justify-content-end mx-3 my-5 scroll" >
-      <a href="#" ><i class="fas fa-caret-up fa-3x" id="scrollUp" onclick="topFunction()"></i></a>
+      <a style="display:none" id="scollButton" href="#tricks" ><i class="fas fa-caret-up fa-3x" onclick="topFunction()"></i></a>
     </section>
 
   </main>
@@ -132,7 +135,8 @@
 
 {% endblock %}
 {% block js %}
-<script type="text/javascript" src={{asset('js/loadMoreTricks.js')}}></script>
 <script type="text/javascript" src={{asset('js/script.js')}}></script>
+<script type="text/javascript" src={{asset('js/loadMoreTricks.js')}}></script>
+
 
 {% endblock %}
