@@ -132,8 +132,8 @@ class TrickController extends AbstractController
             $imageDirectory = $this->getParameter('kernel.project_dir') . '/public/img/image_tricks';
             if ($trick->getImages() === null) {
                 $this->fileUploaderHelper->uploadImage( $imageDirectory, $imageFiles, $trick );
-            } 
-                $this->fileUploaderHelper->uploadEditedTrickImage( $imageDirectory, $imageFiles, $trick);
+            } else{
+                $this->fileUploaderHelper->uploadEditedTrickImage( $imageDirectory, $imageFiles, $trick);}
             if ($videoFiles) {
                 $this->fileUploaderHelper->uploadVideo($videoFiles, $trick);
             }

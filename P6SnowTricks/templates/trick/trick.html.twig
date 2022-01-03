@@ -14,7 +14,7 @@
 <section >
 <!--main image-->
 {% if trick.images is empty %}
-<div class="p-5 mb-5 text-center mainImage " style="background-image: url(' {{asset('img/image_tricks/default.jpg')}}');">
+<div class="p-5 mb-5 text-center mainImage " style="background-image: url(' {{asset('img/image_tricks/1.jpg')}}');">
      {% else %}
          <div class="p-5 mb-5 text-center mainImage " style="background-image: url(' {{asset('img/image_tricks/'~ trick.images.first.path)}}');">
 
