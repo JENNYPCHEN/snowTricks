@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
@@ -57,7 +58,9 @@ class TrickType extends AbstractType
                 'help' => ' veuillez copier et coller le lien youtube.',
                 'invalid_message' =>
                     ' veuillez copier et coller le lien youtube.',
-            ]);
+            ])
+
+            ->add('envoyer',SubmitType::class,[ 'attr' => ['label' => 'envoyer'],]);
             
     }
 
