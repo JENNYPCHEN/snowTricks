@@ -65,13 +65,8 @@ class TrickController extends AbstractController
             $videoFiles = $trickForm->get('videos')->getData();
             $imageFiles = $trickForm->get('images')->getData();
             $imageDirectory =
-                $this->getParameter('kernel.project_dir') .
-                '/public/img/image_tricks';
-            $this->fileUploaderHelper->uploadImage(
-                $imageDirectory,
-                $imageFiles,
-                $trick
-            );
+                $this->getParameter('kernel.project_dir') .'/public/img/image_tricks';
+            $this->fileUploaderHelper->uploadImage( $imageDirectory, $imageFiles, $trick);
             if ($videoFiles) {
                 $this->fileUploaderHelper->uploadVideo($videoFiles, $trick);
             }
@@ -82,12 +77,9 @@ class TrickController extends AbstractController
             $this->addFlash('success', 'Le trick a été créé avec succès');
 
             return $this->redirectToRoute(
-                'homePage',
-                [],
-                Response::HTTP_SEE_OTHER
+                'homePage',[],Response::HTTP_SEE_OTHER
             );
         }
-
         return $this->render('trick/createTrick.html.twig', [
             'trickForm' => $trickForm->createView(),
         ]);
@@ -119,8 +111,7 @@ class TrickController extends AbstractController
             'totalComments' => $totalComments,
             'comments' => $this->commentRepository->findBy(
                 ['trick' => $trick->getId()],
-                ['createDate' => 'DESC'],
-                5
+                ['createDate' => 'DESC'], 5
             ),
             'commentForm' => $commentForm->createView(),
         ]);
@@ -138,23 +129,12 @@ class TrickController extends AbstractController
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
             $videoFiles = $trickForm->get('videos')->getData();
             $imageFiles = $trickForm->get('images')->getData();
-            $imageDirectory =
-                $this->getParameter('kernel.project_dir') .
-                '/public/img/image_tricks';
+            $imageDirectory = $this->getParameter('kernel.project_dir') . '/public/img/image_tricks';
             if ($trick->getImages() === null) {
-                $this->fileUploaderHelper->uploadImage(
-                    $imageDirectory,
-                    $imageFiles,
-                    $trick
-                );
+                $this->fileUploaderHelper->uploadImage( $imageDirectory, $imageFiles, $trick );
             } else {
-                $this->fileUploaderHelper->uploadEditedTrickImage(
-                    $imageDirectory,
-                    $imageFiles,
-                    $trick
-                );
+                $this->fileUploaderHelper->uploadEditedTrickImage( $imageDirectory, $imageFiles, $trick);
             }
-
             if ($videoFiles) {
                 $this->fileUploaderHelper->uploadVideo($videoFiles, $trick);
             }
