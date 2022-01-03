@@ -21,22 +21,19 @@ class TrickController extends AbstractController
 {
     protected $fileUploaderHelper;
     protected $commentRepository;
-    protected $entityManager;
 
     public function __construct(
         FileUploaderHelper $fileUploaderHelper,
-        CommentRepository $commentRepository,
-        EntityManagerInterface $entityManager
+        CommentRepository $commentRepository
     ) {
         $this->fileUploaderHelper = $fileUploaderHelper;
         $this->commentRepository = $commentRepository;
-        $this->EntityManagerInterface = $entityManager;
     }
 
     /**
      * @Route("/delete/{id}", name="trick_delete", methods={"POST"})
      */
-    public function delete(Request $request, Trick $trick): Response
+    public function delete(Request $request, Trick $trick, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         if (
@@ -45,8 +42,8 @@ class TrickController extends AbstractController
                 $request->request->get('_token')
             )
         ) {
-            $this->entityManager->remove($trick);
-            $this->entityManager->flush();
+            $entityManager->remove($trick);
+            $entityManager->flush();
         }
         $this->addFlash('success', 'Le trick a été supprimé avec succès');
         return $this->redirectToRoute('homePage', [], Response::HTTP_SEE_OTHER);
@@ -55,7 +52,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/createtrick", name="createTrickPage", methods={"GET", "POST"})
      */
-    public function createTrickPage(Request $request): Response
+    public function createTrickPage(Request $request,EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $trick = new Trick();
@@ -77,8 +74,8 @@ class TrickController extends AbstractController
             }
             $trick->setCreateDate(new \Datetime());
             $trick->setUser($this->getUser());
-            $this->entityManager->persist($trick);
-            $this->entityManager->flush();
+            $entityManager->persist($trick);
+            $entityManager->flush();
             $this->addFlash('success', 'Le trick a été créé avec succès');
 
             return $this->redirectToRoute(
@@ -129,7 +126,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/edit-{id}", name="trick_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Trick $trick): Response
+    public function edit(Request $request, Trick $trick, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $trickForm = $this->createForm(TrickType::class, $trick);
@@ -159,8 +156,8 @@ class TrickController extends AbstractController
                 $this->fileUploaderHelper->uploadVideo($videoFiles, $trick);
             }
             $trick->setUpdateDate(new \Datetime());
-            $this->entityManager->persist($trick);
-            $this->entityManager->flush();
+            $entityManager->persist($trick);
+            $entityManager->flush();
             $this->addFlash('success', 'Le trick a été créé avec modifé');
 
             return $this->redirectToRoute(
