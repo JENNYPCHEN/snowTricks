@@ -18,31 +18,29 @@ class LoadMoreController extends AbstractController
      * @Route("/load/more/tricks/{row}", name="load_more_tricks",methods={"GET", "POST"})
      */
     public function loadmoreTricks(
-        SerializerInterface $serializer,
         TrickRepository $trickRepository,
         Request $request
     ): Response {
-        
         $offset = $request->get('row');
-        $limit=5;
-        $search=$request->query->get('search');
-        $tricks = $trickRepository->findBySearch($search,$offset,$limit);
+        $limit = 5;
+        $search = $request->query->get('search');
+        $tricks = $trickRepository->findBySearch($search, $offset, $limit);
 
         foreach ($tricks as $trick) {
-            $images=$trick->getImages();
-            $i=0;
-            $imagepath="default.jpg";
-            foreach ($images as $image){
-                if($i==0){
-                    $imagepath=$image->getPath();
+            $images = $trick->getImages();
+            $i = 0;
+            $imagepath = 'default.jpg';
+            foreach ($images as $image) {
+                if ($i === 0) {
+                    $imagepath = $image->getPath();
                 }
                 $i++;
             }
             $data[] = [
                 'id' => $trick->getId(),
                 'name' => $trick->getName(),
-                'image'=> $imagepath,
-                'slug'=>$trick->getSlug(),
+                'image' => $imagepath,
+                'slug' => $trick->getSlug(),
             ];
         }
         return new JsonResponse($data);
@@ -56,7 +54,6 @@ class LoadMoreController extends AbstractController
         Request $request
     ): Response {
         $offset = $request->get('row');
-
         $comments = $commentRepository->findBy(
             ['trick' => $trick],
             ['createDate' => 'DESC'],

@@ -19,9 +19,7 @@ use Symfony\Component\Validator\Constraints\Image;
 
 class RegistrationFormType extends AbstractType
 {
-    public function buildForm(
-        FormBuilderInterface $builder,
-        array $options
+    public function buildForm(FormBuilderInterface $builder,array $options
     ): void {
         $builder
             ->add('username', TextType::class, [
@@ -54,10 +52,7 @@ class RegistrationFormType extends AbstractType
                 'expanded' => true,
                 'label' => 'required',
             ])
-
             ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'mapped' => false,
                 'label' => 'required',
                 'attr' => ['autocomplete' => 'new-password'],
@@ -69,13 +64,11 @@ class RegistrationFormType extends AbstractType
                         'min' => 6,
                         'minMessage' =>
                             'Votre mot de passe doit comporter au moins {{ limit }} caractères',
-                        // max length allowed by Symfony for security reasons
                         'max' => 12,
                     ]),
                 ],
             ]);
     }
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

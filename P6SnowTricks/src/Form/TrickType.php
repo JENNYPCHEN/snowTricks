@@ -19,9 +19,7 @@ use Symfony\Component\Validator\Constraints\All;
 
 class TrickType extends AbstractType
 {
-    public function buildForm(
-        FormBuilderInterface $builder,
-        array $options
+    public function buildForm(FormBuilderInterface $builder,array $options
     ): void {
         $builder
             ->add('name', TextType::class, [
@@ -59,7 +57,6 @@ class TrickType extends AbstractType
                 'invalid_message' =>
                     ' veuillez copier et coller le lien youtube.',
             ])
-
             ->add('envoyer',SubmitType::class,[ 'attr' => ['label' => 'envoyer'],]);
             
     }

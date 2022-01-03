@@ -8,7 +8,6 @@ jQuery(document).ready(function(e) {
       var row=parseInt(a.dataset.offset);
       var rowperpage = 5;
       row+=rowperpage;
-
       if(row <= totalComments){
         $.ajax({
           url: '/load/more/comments/'+ trickId +'/'+row,
@@ -17,15 +16,13 @@ jQuery(document).ready(function(e) {
             var rowno = row + rowperpage;
             if(rowno > totalComments){
               $('#js-loadmore').hide();
-            }else{
+            }
               $('#js-loadmore').text("Load more");
               $('#a').data('offset', row); 
               $('#a').attr('data-offset',row); 
-            }
             
             let comments = response;
-            for (var i = 0; i < comments.length; i++) {
-          
+            for (var i = 0; i < comments.length; i++) { 
               let eachComment=
               '<div class="displayComments">'+
               '<div class=" row d-flex justify-content-center ">'+
