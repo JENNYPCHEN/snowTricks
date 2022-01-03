@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -137,7 +136,10 @@ class ResetPasswordController extends AbstractController
 
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
-            $this->addFlash('success', 'Les mots de passe ont été changés avec succès. Vous pouvez maintenant vous connecter.');
+            $this->addFlash(
+                'success',
+                'Les mots de passe ont été changés avec succès. Vous pouvez maintenant vous connecter.'
+            );
             return $this->redirectToRoute('homePage');
         }
 
@@ -178,7 +180,9 @@ class ResetPasswordController extends AbstractController
         $email = (new TemplatedEmail())
             ->from(new Address('admin@snowtricks.fr', 'SnowTricks'))
             ->to($user->getEmail())
-            ->subject('SnowTricks: Demande de réinitialisation de votre mot de passe.')
+            ->subject(
+                'SnowTricks: Demande de réinitialisation de votre mot de passe.'
+            )
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
