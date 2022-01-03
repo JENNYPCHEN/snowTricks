@@ -89,7 +89,7 @@
         <div class="card mb-1">
         <a href="{{ path('trickPage', {'id': trick.id,'slug': trick.slug})}}">
          {% if trick.images is empty %}
-                <img class="card-img-top" src="{{asset('img/image_tricks/default.jpg')}}">
+                <img class="card-img-top" src="{{asset('img/image_tricks/1.jpg')}}">
                  {% else %}
                {% for image in trick.images |slice(0,1)%}
                <img class="card-img-top" src="{{asset('img/image_tricks/'~image.path)}}">

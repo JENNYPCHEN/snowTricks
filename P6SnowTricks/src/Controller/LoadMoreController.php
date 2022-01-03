@@ -29,7 +29,7 @@ class LoadMoreController extends AbstractController
         foreach ($tricks as $trick) {
             $images = $trick->getImages();
             $i = 0;
-            $imagepath = 'default.jpg';
+            $imagepath = '1.jpg';
             foreach ($images as $image) {
                 if ($i === 0) {
                     $imagepath = $image->getPath();
