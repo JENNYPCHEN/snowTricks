@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Form\TrickType;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -26,7 +25,7 @@ class Trick
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * 
+     *
      */
     private $id;
 
@@ -174,9 +173,9 @@ class Trick
 
     public function getSlug()
     {
-      $slugger=new AsciiSlugger();
-      $slug=$slugger->slug($this->name);
-      return strtolower($slug);
+        $slugger = new AsciiSlugger();
+        $slug = $slugger->slug($this->name);
+        return strtolower($slug);
     }
 
     public function __toString()
@@ -257,28 +256,6 @@ class Trick
             $this->comments[] = $comment;
             $comment->setTrick($this);
         }
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
-            // set the owning side to null (unless already changed)
-            if ($comment->getTrick() === $this) {
-                $comment->setTrick(null);
-            }
-        }
-        return $this;
-    }
-
-    public function addVideo(Video $video): self
-    {
-        if (!$this->videos->contains($video)) {
-            $this->videos[] = $video;
-            $video->setTrick($this);
-        }
-
         return $this;
     }
 
