@@ -36,7 +36,7 @@ jQuery(document).ready(function(e) {
                 '</a>'+
                 '<div class="card-body d-flex justify-content-between"> '+
                 '<div>'+'<a href="/trick/'+ tricks[i].id +'/'+ tricks[i].slug +'">'+'<h5 class="card-title">'+tricks[i].name + '</h5></a></div>'+
-                (user==true?' <div><a href="/trick/edit-"+'+ tricks[i].id +'"><button class="btn btn-sm btn-outline-secondary m-1"><i class="fas fa-pencil-alt text-right fa-sm"></i></button></a>'+
+                (user==true?' <div><a href="/trick/edit-'+ tricks[i].id+'"><button class="btn btn-sm btn-outline-secondary m-1"><i class="fas fa-pencil-alt text-right fa-sm"></i></button></a>'+
                 '<form method="post" action="trick/delete/' + tricks[i].id +'" onsubmit="return confirm(`Êtes-vous sûr de vouloir supprimer le trick : '+tricks[i].name +'?`)">'+
                 '<input type="hidden" name="_token" value="{{ csrf_token("delete"'+ tricks[i].id +') }}">'+
                 '<button class="btn btn-sm btn-outline-secondary m-1"><i class="fas fa-trash-alt fa-sm text-right"></i></button></form></div>':'')+
