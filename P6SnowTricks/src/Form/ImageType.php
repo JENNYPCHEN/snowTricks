@@ -23,7 +23,7 @@ class ImageType extends AbstractType
                             'image/jpeg',
                             'image/png',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid image file: jpg, jpeg or png',
+                        'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide : jpg, jpeg ou png.',
                     ])
                 ],
             ]);

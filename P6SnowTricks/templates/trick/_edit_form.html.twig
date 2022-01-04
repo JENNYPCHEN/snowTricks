@@ -54,7 +54,10 @@
 
 
 <div class="m-3 row ">
-{{ form_row(trickForm.images,{'attr':{'class':'form-control mb-1','onchange':'preview_image();','type':'file','accept':'image/*'}})}}
+{{ form_label(trickForm.images)}}
+{{ form_widget(trickForm.images,{'attr':{'class':'form-control mb-1','onchange':'preview_image();','type':'file','accept':'image/*'}})}}
+<div class="invalid-feedback"> Veuillez télécharger un fichier image valide.</div>
+
 <div id="image_preview"class="d-flex justify-content-center"></div>
 </div>
 <div class="m-3 row d-flex justify-content-start">
