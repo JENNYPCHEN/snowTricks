@@ -111,7 +111,7 @@ class TrickController extends AbstractController
             'totalComments' => $totalComments,
             'comments' => $this->commentRepository->findBy(
                 ['trick' => $trick->getId()],
-                ['createDate' => 'DESC'], 5
+                ['createDate' => 'DESC'], 10
             ),
             'commentForm' => $commentForm->createView(),
         ]);

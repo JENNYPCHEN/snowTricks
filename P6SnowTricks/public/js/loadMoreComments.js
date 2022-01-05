@@ -6,7 +6,7 @@ jQuery(document).ready(function(e) {
       var totalComments =a.dataset.total;
       var trickId=a.dataset.trick;
       var row=parseInt(a.dataset.offset);
-      var rowperpage = 5;
+      var rowperpage = 10;
       row+=rowperpage;
       if(row <= totalComments){
         $.ajax({

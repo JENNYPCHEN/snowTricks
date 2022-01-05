@@ -20,7 +20,7 @@
     aria-expanded="false"
     aria-controls="editGallery"
   >
-    Voir les images
+    Voir les medias
   </a>
 </div>
 <!--class collapse when small screen-->
@@ -40,7 +40,7 @@
     </div>
     {% endfor %}
      {% endif %}
-         {% if trickForm.vars.data.videos|default %}
+     {% if trickForm.vars.data.videos|default %}
      {% for video in trickForm.vars.data.videos %}
     <div class="col-lg-3 col-xs-3 mb-4 mb-lg-0">
       <div class="card mb-2">
@@ -51,7 +51,7 @@
      {% endfor %}
      {% endif %}
   </div>
-
+</div>
 
 <div class="m-3 row ">
 {{ form_label(trickForm.images)}}
@@ -74,6 +74,7 @@
 {{form_errors(trickForm)}}
 </div>
 <div class="addFields"></div>
-<div class="p-5 d-flex justify-content-center">{{form_widget(trickForm.envoyer,{'attr':{'class':'btn btn-lg btn-primary'}})}}</div>
+<div class="p-5 d-flex justify-content-center">{{form_widget(trickForm.envoyer,{'attr':{'class':'btn btn-lg btn-primary m-1'}})}}</div>
+
 {% do trickForm.videos.setRendered %}
 {{ form_rest(trickForm) }}

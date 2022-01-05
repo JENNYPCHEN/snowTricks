@@ -57,7 +57,7 @@ class LoadMoreController extends AbstractController
         $comments = $commentRepository->findBy(
             ['trick' => $trick],
             ['createDate' => 'DESC'],
-            5,
+            10,
             $offset
         );
         foreach ($comments as $comment) {
