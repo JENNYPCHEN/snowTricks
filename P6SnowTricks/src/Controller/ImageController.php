@@ -18,13 +18,17 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class ImageController extends AbstractController
 {
+    protected $entityManager;
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager=$entityManager;
+    }
     /**
      * @Route("/delete/{id}", name="image_delete", methods={"DELETE"})
      */
     public function delete(
         Request $request,
-        Image $image,
-        EntityManagerInterface $entityManager
+        Image $image
     ): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $data = json_decode($request->getContent(), true);
@@ -37,8 +41,8 @@ class ImageController extends AbstractController
             $path = $image->getPath();
 			unlink($this->getParameter('kernel.project_dir') .
             '/public/img/image_tricks' . '/' . $path);
-            $entityManager->remove($image);
-            $entityManager->flush();
+            $this->entityManager->remove($image);
+            $this->entityManager->flush();
             return new JsonResponse(['success' => 1]);
         }
         return new JsonResponse(['error' => 'invalid_token'], 400);

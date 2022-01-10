@@ -10,19 +10,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    protected $trickRepository;
+    public function __construct(TrickRepository $trickRepository){
+        $this->trickRepository=$trickRepository;
+    }
+ 
     /**
      * @Route("/", name="homePage", methods={"GET"})
      */
     public function indexPage(
-        TrickRepository $trickRepository,
         Request $request
     ): Response {
         $search = $request->query->get('q');
         $user = $this->getUser() == null ? false : true;
-        $totalTricks = $trickRepository->countNumberTricks($search);
+        $totalTricks = $this->trickRepository->countNumberTricks($search);
         return $this->render('home/index.html.twig', [
             'totalTricks' => $totalTricks,
-            'tricks' => $trickRepository->findBySearch($search),
+            'tricks' => $this->trickRepository->findBySearch($search),
             'search' => $search,
             'user' => $user,
         ]);
