@@ -15,13 +15,17 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class VideoController extends AbstractController
 {
+    protected $entityManager;
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager=$entityManager;
+    }
      /**
      * @Route("/delete/{id}", name="video_delete", methods={"DELETE"})
      */
     public function delete(
         Request $request,
-        Video $video,
-        EntityManagerInterface $entityManager
+        Video $video
     ): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $data = json_decode($request->getContent(), true);
@@ -32,8 +36,8 @@ class VideoController extends AbstractController
             )
         ) {
             $data = json_decode($request->getContent(), true);
-            $entityManager->remove($video);
-            $entityManager->flush();
+            $this->entityManager->remove($video);
+            $this->entityManager->flush();
             return new JsonResponse(['success' => 1]);
         }
         return new JsonResponse(['error' => 'invalid_token'], 400);    }
