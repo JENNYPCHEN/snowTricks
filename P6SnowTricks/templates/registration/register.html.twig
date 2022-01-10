@@ -50,7 +50,7 @@
          {% endfor %}
          </div>    
         <div class="d-flex justify-content-center mb-3">
-        {{ form_widget(registrationForm.agreeTerms, {'attr':{'class':' mb-1','oninvalid':'this.setCustomValidity("veuillez cliquer sur la case pour procéder.")'}}) }}
+        {{ form_widget(registrationForm.agreeTerms, {'attr':{'class':' mb-1','oninvalid':'this.setCustomValidity("veuillez cliquer sur la case pour procéder.")','oninput':"this.setCustomValidity('')"}}) }}
         </div>
 
         <button class="w-100 btn btn-lg btn-primary mb-3" type="submit">Se enregister</button>
