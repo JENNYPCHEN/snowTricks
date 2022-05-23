@@ -58,5 +58,10 @@ You can now sign up for an account and confirm your sign up with e mail confirma
 <br>
 Enjoy!<br>
 <br>
-ChingYi P.C
+ChingYi P.C<br>
+<a href="http://chingyipc.com">http://chingyipc.com</a>
+<br>
+<br>
+<p>P.S if you would like to have a quick look of this project, you can go to the link below:</p>
+http://snowtricks.chingyipc.com/
 
